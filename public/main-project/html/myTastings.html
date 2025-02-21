@@ -6,7 +6,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-1TKGEWT9MJ');
@@ -16,168 +16,259 @@
   <title>My Tastings - BrewLog</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/myTastings.css" />
-  <script type="module" src="../js/main.js"></script>
-  <script type="module" src="js/protect.js"></script>
-
-
+  <link rel="stylesheet" href="../css/loadingStyles.css" />
+  <script type="module" src="../js/myTastings.js"></script>
+  <script type="module" src="../js/protect.js"></script>
 </head>
 
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h1 onclick="location.href='../dashboard.html';">BrewLog</h1>
-      <!-- Hamburger icon for mobile (inside sidebar header) -->
-      <div class="sidebar-hamburger" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-    </div>
-    <button onclick="location.href='addTasting.html';">
-      <span class="plus-icon">+</span> Add New Tasting
-    </button>
-    <nav>
-      <a href="../dashboard.html">Home</a>
-      <a href="#">My Tastings</a>
-      <a href="coffeeMap.html">Coffee Map</a>
-      <div class="lineBreak"></div>
-      <!-- Clicking "Feedback" opens the popup -->
-      <a href="#" onclick="openFeedback(); return false;">Feedback</a>
-      <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
-      <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
-    </nav>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+</style>
+  <div class="loading">
+    <h1>Loading BrewLog...</h1>
+    <img src="../assets/loading.webp" alt="Loading Spinner" />
+    <p>This may take a few seconds.</p>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Top Navigation -->
-    <div class="top-nav">
-      <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
-      <div class="profile" onclick="window.location.href='profile.html';">
-        <div>
-          <span>John Doe</span>
-          <p>Coffee Master</p>
+  <div class="everything">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1 onclick="location.href='../dashboard.html';">BrewLog</h1>
+        <!-- Hamburger icon for mobile (inside sidebar header) -->
+        <div class="sidebar-hamburger" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
-        <div class="profile-image"></div>
       </div>
+      <button onclick="location.href='addTasting.html';">
+        <span class="plus-icon">+</span> Add New Tasting
+      </button>
+      <nav>
+        <a href="../dashboard.html">Home</a>
+        <a href="#">My Tastings</a>
+        <a href="coffeeMap.html">Coffee Map</a>
+        <div class="lineBreak"></div>
+        <!-- Clicking "Feedback" opens the popup -->
+        <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+        <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+        <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
+      </nav>
     </div>
 
-    <!-- My Tastings Content -->
-    <a onclick="window.history.back();" class="back-btn">&#8592; Back</a>
-    <h2 class="page-title">My Tastings</h2>
-
-    <!-- Search & Sort -->
-    <div class="tastings-header">
-      <input type="text" class="search-bar" placeholder="Search Tastings" />
-      <div class="search-sort">
-        <button class="search-btn">Search</button>
-        <button class="sort-btn" onclick="showComingSoon()">Filter</button>
-      </div>
-    </div>
-
-    <!-- Tasting Cards -->
-    <div class="tastings-list">
-      <!-- Tasting Card 1 -->
-      <div class="tasting-card" onclick="window.location.href='tastingDetails.html#Guatamela';">
-        <div class="tasting-card-content">
-          <div class="tasting-image">
-            <img style="margin-left: 5px;" src="../assets/french-press.webp" alt="French Press" width="75" height="75">
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Navigation -->
+      <div class="top-nav">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        <div class="profile" onclick="window.location.href='profile.html';">
+          <div>
+            <span>John Doe</span>
+            <p>Coffee Master</p>
           </div>
-          <div class="tasting-text">
-            <div class="tasting-card-header">
-              <h3>Guatemala Blend</h3>
-              <p>by Starbucks</p>
-            </div>
-            <p class="brew-method">Brew Method: French Press</p>
-            <div class="ratingSys">
-              <div class="bean on">☕</div>
-              <div class="bean on">☕</div>
-              <div class="bean on">☕</div>
-              <div class="bean on">☕</div>
-              <div class="bean off">☕</div>
-            </div>
-          </div>
+          <div class="profile-image"></div>
         </div>
       </div>
 
-      <!-- Tasting Card 2 -->
-      <div class="tasting-card" onclick="window.location.href='tastingDetails.html#Colombian';">
-        <div class="tasting-card-content">
-          <div class="tasting-image">
-            <img src="../assets/espresso.png" alt="Espresso Machine" width="75" height="75">
-          </div>
-          <div class="tasting-text">
-            <div class="tasting-card-header">
-              <h3>Colombian Dark</h3>
-              <p>by Blue Bottle</p>
-            </div>
-            <p class="brew-method">Brew Method: Espresso</p>
-            <div class="ratingSys">
-              <div class="bean on">☕</div>
-              <div class="bean on">☕</div>
-              <div class="bean on">☕</div>
-              <div class="bean off">☕</div>
-              <div class="bean off">☕</div>
-            </div>
-          </div>
+      <!-- My Tastings Content -->
+      <a onclick="window.history.back();" class="back-btn">&#8592; Back</a>
+      <h2 class="page-title">My Tastings</h2>
+
+      <!-- Search & Sort -->
+      <div class="tastings-header">
+        <input type="text" class="search-bar" placeholder="Search Tastings" />
+        <div class="search-sort">
+          <button class="search-btn">Search</button>
+          <button class="sort-btn" onclick="showComingSoon()">Filter</button>
         </div>
       </div>
-      <!-- Additional tasting cards can be added here -->
+
+      <!-- Tasting Cards -->
+      <div class="tastings-list">
+        <!-- Tasting cards will be dynamically generated here -->
+      </div>
     </div>
-  </div>
 
-  <!-- Fixed Hamburger for Mobile -->
-  <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
-
-  <!-- Feedback Popup and Overlay -->
-  <div class="feedback-overlay" id="feedbackOverlay"></div>
-  <div class="feedback-popup" id="feedbackPopup">
-    <div class="popup-header">
-      <h2>Feedback</h2>
-      <button class="close-btn" onclick="closeFeedback()">×</button>
+    <!-- Fixed Hamburger for Mobile -->
+    <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
     </div>
-    <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
-      <label for="feedbackName">Name</label>
-      <input type="text" id="feedbackName" name="feedbackName" required>
 
-      <label for="feedbackEmail">Email</label>
-      <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+    <!-- Feedback Popup and Overlay -->
+    <div class="feedback-overlay" id="feedbackOverlay"></div>
+    <div class="feedback-popup" id="feedbackPopup">
+      <div class="popup-header">
+        <h2>Feedback</h2>
+        <button class="close-btn" onclick="closeFeedback()">×</button>
+      </div>
+      <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="feedbackName">Name</label>
+        <input type="text" id="feedbackName" name="feedbackName" required>
 
-      <label for="feedbackType">Feedback Type</label>
-      <select id="feedbackType" name="feedbackType">
-        <option value="bug">Bug Report</option>
-        <option value="general">General Feedback</option>
-        <option value="feature">Feature Request</option>
-      </select>
+        <label for="feedbackEmail">Email</label>
+        <input type="email" id="feedbackEmail" name="feedbackEmail" required>
 
-      <label for="feedbackMessage">Feedback</label>
-      <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+        <label for="feedbackType">Feedback Type</label>
+        <select id="feedbackType" name="feedbackType">
+          <option value="bug">Bug Report</option>
+          <option value="general">General Feedback</option>
+          <option value="feature">Feature Request</option>
+        </select>
 
-      <button type="submit">Submit Feedback</button>
-    </form>
-  </div>
+        <label for="feedbackMessage">Feedback</label>
+        <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
 
-  <!-- Coming Soon Popup and Overlay -->
-  <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
-  <div class="popup" id="comingSoonPopup" style="display:none;">
-    <div class="popup-header">
-      <h2>Coming Soon</h2>
-      <button class="close-btn" onclick="closeComingSoon()">×</button>
+        <button type="submit">Submit Feedback</button>
+      </form>
     </div>
-    <div class="popup-content">
-      <p>Feature coming soon!</p>
-    </div>
-    <div class="button-container">
-      <button onclick="closeComingSoon()">OK</button>
+
+    <!-- Coming Soon Popup and Overlay -->
+    <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+    <div class="popup" id="comingSoonPopup" style="display:none;">
+      <div class="popup-header">
+        <h2>Coming Soon</h2>
+        <button class="close-btn" onclick="closeComingSoon()">×</button>
+      </div>
+      <div class="popup-content">
+        <p>Feature coming soon!</p>
+      </div>
+      <div class="button-container">
+        <button onclick="closeComingSoon()">OK</button>
+      </div>
     </div>
   </div>
 
   <script src="../js/myTastings.js"></script>
+  <script type="module">
+    import { db, auth } from "../js/firebase.js";
+    import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+    // Function to fetch tastings from Firestore
+    async function fetchTastings(userEmail) {
+        const tastingsList = document.querySelector('.tastings-list');
+        console.log("Fetching tastings for:", userEmail);
+
+        try {
+            // Query the tastings collection to get tastings for the logged-in user
+            const tastingsRef = collection(db, "tastings");
+            const userTastingsQuery = query(tastingsRef, where("userEmail", "==", userEmail));
+            const querySnapshot = await getDocs(userTastingsQuery);
+
+            console.log("Query snapshot:", querySnapshot);
+
+            // Check if there are any tastings
+            if (querySnapshot.empty) {
+                tastingsList.innerHTML = "<p>No tastings found. Please add some tastings.</p>";
+                console.log("No tastings found.");
+                return;
+            }
+
+            // Loop through the tastings and create a tasting card for each one
+            querySnapshot.forEach((doc) => {
+                const coffee = doc.data();
+                coffee.id = doc.id;
+                const tastingCard = createTastingCard(coffee);
+                tastingsList.appendChild(tastingCard);
+            });
+            console.log("Tastings loaded:", querySnapshot.size);
+        } catch (error) {
+            console.error("Error fetching tastings: ", error);
+            tastingsList.innerHTML = "<p>Failed to load tastings. Please try again later.</p>";
+        }
+    }
+
+    // Function to create a tasting card
+    function createTastingCard(coffee) {
+        const tastingCard = document.createElement('div');
+        tastingCard.classList.add('tasting-card');
+        tastingCard.onclick = function() {
+            // redirect to tasting details page with the document ID from Firestore
+            window.location.href = `tastingDetails.html?id=${coffee.id}`;
+        };
+
+        const tastingCardContent = document.createElement('div');
+        tastingCardContent.classList.add('tasting-card-content');
+
+        const tastingImage = document.createElement('div');
+        tastingImage.classList.add('tasting-image');
+        const img = document.createElement('img');
+        img.src = coffee.brewMethod === 'Espresso' ? "../assets/espresso.png" : "../assets/french-press.webp";
+        img.alt = coffee.brewMethod;
+        img.width = 75;
+        img.height = 75;
+        tastingImage.appendChild(img);
+
+        const tastingText = document.createElement('div');
+        tastingText.classList.add('tasting-text');
+
+        const tastingCardHeader = document.createElement('div');
+        tastingCardHeader.classList.add('tasting-card-header');
+        const coffeeName = document.createElement('h3');
+        coffeeName.textContent = coffee.coffeeName;
+        const brandName = document.createElement('p');
+        brandName.textContent = `by ${coffee.brandName}`;
+        tastingCardHeader.appendChild(coffeeName);
+        tastingCardHeader.appendChild(brandName);
+
+        const brewMethod = document.createElement('p');
+        brewMethod.classList.add('brew-method');
+        brewMethod.textContent = `Brew Method: ${coffee.brewMethod}`;
+
+        const ratingSys = document.createElement('div');
+        ratingSys.classList.add('ratingSys');
+        // Assuming you store the rating as a number from 1 to 5
+        for (let i = 1; i <= 5; i++) {
+            const bean = document.createElement('div');
+            bean.classList.add('bean');
+            bean.classList.add(i <= coffee.rating ? 'on' : 'off');
+            bean.textContent = '☕';
+            ratingSys.appendChild(bean);
+        }
+
+        tastingText.appendChild(tastingCardHeader);
+        tastingText.appendChild(brewMethod);
+        tastingText.appendChild(ratingSys);
+
+        tastingCardContent.appendChild(tastingImage);
+        tastingCardContent.appendChild(tastingText);
+        tastingCard.appendChild(tastingCardContent);
+
+        return tastingCard;
+    }
+
+    auth.onAuthStateChanged(async (user) => {
+      console.log("Auth state changed:", user);
+
+      if (user) {
+          // User is logged in, access their email
+          const userEmail = user.email;
+          console.log("User email:", userEmail);
+
+          // Fetch tastings once the auth state is changed
+          await fetchTastings(userEmail);
+
+          // Show the page once the data is loaded
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".everything").style.display = "block";
+      } else {
+          // User is not logged in, redirect to login page
+          console.log("User not logged in, redirecting to login.");
+          window.location.href = "../login.html"; // Adjust the path as needed
+      }
+  });
+</script>
+
+
+
 </body>
 
 </html>

@@ -16,167 +16,234 @@
   <title>BrewLog Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css"/>
-  <script type="module" src="js/main.js"></script>
+  <link rel="stylesheet" href="css/loadingStyles.css" />
+  <script type="module" src="js/firebase.js"></script>
   <script type="module" src="js/protect.js"></script>
 
 </head>
 <body>
-  <!-- Overlay for Welcome Popup -->
-  <div class="overlay" id="overlay"></div>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    
+  </style>
 
-  <!-- Welcome Popup Content -->
-  <div class="popup">
-    <div class="popup-header">
-      <h2>Welcome to the BrewLog Demo</h2>
-    </div>
-    <div class="popup-content">
-      <p>This is a demo version of the app. Your data will not be saved, and no account is required. Many features are not yet available, so please don't leave feedback about missing functionality. However, if you find any bugs, broken elements, or have suggestions for new or improved features, we'd love to hear your feedback!</p>
-    </div>
-    <div class="button-container">
-      <button onclick="closePopup()">Accept</button>
-    </div>
+  <div class="loading">
+    <h1>Loading BrewLog...</h1>
+    <img src="assets/loading.webp" alt="Loading Spinner" />
+    <p>This may take a few seconds.</p>
   </div>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h1>BrewLog</h1>
-      <!-- Hamburger inside sidebar header (for mobile when sidebar is open) -->
-      <div class="sidebar-hamburger" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+  <div class="everything">
+    <!-- Overlay for Welcome Popup -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Welcome Popup Content -->
+    <div class="popup">
+      <div class="popup-header">
+        <h2>Welcome to the BrewLog Demo</h2>
+      </div>
+      <div class="popup-content">
+        <p>This is a demo version of the app. Your data will not be saved, and no account is required. Many features are not yet available, so please don't leave feedback about missing functionality. However, if you find any bugs, broken elements, or have suggestions for new or improved features, we'd love to hear your feedback!</p>
+      </div>
+      <div class="button-container">
+        <button onclick="closePopup()">Accept</button>
       </div>
     </div>
-    <button onclick="location.href='html/addTasting.html';"><span class="plus-icon">+</span> Add New Tasting</button>
-    <nav>
-      <a href="#">Home</a>
-      <a href="html/myTastings.html">My Tastings</a>
-      <a href="html/coffeeMap.html">Coffee Map</a>
-      <div class="lineBreak"></div>
-      <a href="#" onclick="openFeedback(); return false;">Feedback</a>
-      <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
-      <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
-    </nav>
-  </div>
-  
-  <!-- Main Content -->
-  <div class="main-content">
-    <div class="top-nav">
-      <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
-      <div class="profile" onclick="window.location.href='html/profile.html';">
-        <div>
-          <span>John Doe</span>
-          <p>Coffee Master</p>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1>BrewLog</h1>
+        <!-- Hamburger inside sidebar header (for mobile when sidebar is open) -->
+        <div class="sidebar-hamburger" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
-        <div class="profile-image"></div>
       </div>
-    </div>
-    <h4 style="margin-left: 30px; font-weight: 600; font-size: 14px;">Home</h4>
-    <h2 style="margin: 10px 0 20px 30px;">Welcome, John Doe!</h2>
-    <div class="dashboard">
-      <div class="topCard pressable" id="addNewTasting">
-        <p style="color: #00E46A; margin-top: 20px;">+</p>
-        <h3 style="margin-bottom: 50px;">Add New Tasting</h3>
-      </div>
-      <div class="topCard pressable" id="myTastings">
-        <img src="assets/coffee-cup.webp" alt="Coffee Cup" width="175" height="175">
-        <h3>My Tastings</h3>
-      </div>
-      <div class="topCard pressable" id="coffeeMap">
-        <img src="assets/pin-drop.webp" alt="Location Pindrop" width="150" height="150">
-        <h3>Coffee Map</h3>
-      </div>
-      <!-- A wider card spanning two columns -->
-      <div class="topCard latest" style="grid-column: span 2;">
-        <h3>Your Latest Tastings</h3>
-        <div class="coffeeInput">
-          <p>Guatamela Blend</p>
-          <p style="font-size: 10px;">29 Jan 2025 07:51</p>
-        </div>
+      <button onclick="location.href='html/addTasting.html';"><span class="plus-icon">+</span> Add New Tasting</button>
+      <nav>
+        <a href="#">Home</a>
+        <a href="html/myTastings.html">My Tastings</a>
+        <a href="html/coffeeMap.html">Coffee Map</a>
         <div class="lineBreak"></div>
+        <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+        <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+        <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
+      </nav>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="top-nav">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        <div class="profile" onclick="window.location.href='html/profile.html';">
+          <div>
+            <span>John Doe</span>
+            <p>Coffee Master</p>
+          </div>
+          <div class="profile-image"></div>
+        </div>
+      </div>
+      <h4 style="margin-left: 30px; font-weight: 600; font-size: 14px;">Home</h4>
+      <h2 style="margin: 10px 0 20px 30px;">Welcome, <span>John Doe</span>!</h2>
+      <div class="dashboard">
+        <div class="topCard pressable" id="addNewTasting">
+          <p style="color: #00E46A; margin-top: 20px;">+</p>
+          <h3 style="margin-bottom: 50px;">Add New Tasting</h3>
+        </div>
+        <div class="topCard pressable" id="myTastings">
+          <img src="assets/coffee-cup.webp" alt="Coffee Cup" width="175" height="175">
+          <h3>My Tastings</h3>
+        </div>
+        <div class="topCard pressable" id="coffeeMap">
+          <img src="assets/pin-drop.webp" alt="Location Pindrop" width="150" height="150">
+          <h3>Coffee Map</h3>
+        </div>
+        <!-- A wider card spanning two columns -->
+        <div class="topCard latest" style="grid-column: span 2;">
+          <h3>Your Latest Tastings</h3>
+          <div class="coffeeInput">
+            <p>Guatamela Blend</p>
+            <p style="font-size: 10px;">29 Jan 2025 07:51</p>
+          </div>
+          <div class="lineBreak"></div>
+        </div>
+      </div>
+      <h2 style="margin-left: 30px; font-size: 20px;">Coffee Tasting Information</h2>
+      <div class="info-section">
+        <div class="bottomCard numbered">
+          <div>
+            <p>1</p>
+            <h3>Tastings Recorded</h3>
+          </div>
+        </div>
+        <div class="bottomCard numbered">
+          <div>
+            <p>1</p>
+            <h3>Tastings This Week</h3>
+          </div>
+        </div>
+        <div class="bottomCard favCoffee">
+          <div class="textTogether">
+            <h3>Coffee Arabica</h3>
+            <p>By <span>John Doe</span></p>
+          </div>
+          <div class="ratingSys">
+            <div class="bean on">☕</div>
+            <div class="bean on">☕</div>
+            <div class="bean on">☕</div>
+            <div class="bean on">☕</div>
+            <div class="bean off">☕</div>
+          </div>
+        </div>
       </div>
     </div>
-    <h2 style="margin-left: 30px; font-size: 20px;">Coffee Tasting Information</h2>
-    <div class="info-section">
-      <div class="bottomCard numbered">
-        <div>
-          <p>1</p>
-          <h3>Tastings Recorded</h3>
-        </div>
-      </div>
-      <div class="bottomCard numbered">
-        <div>
-          <p>1</p>
-          <h3>Tastings This Week</h3>
-        </div>
-      </div>
-      <div class="bottomCard favCoffee">
-        <div class="textTogether">
-          <h3>Coffee Arabica</h3>
-          <p>By <span>John Doe</span></p>
-        </div>
-        <div class="ratingSys">
-          <div class="bean on">☕</div>
-          <div class="bean on">☕</div>
-          <div class="bean on">☕</div>
-          <div class="bean on">☕</div>
-          <div class="bean off">☕</div>
-        </div>
-      </div>
+    
+    <!-- Fixed Hamburger for Mobile (visible when sidebar is hidden) -->
+    <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
     </div>
-  </div>
-  
-  <!-- Fixed Hamburger for Mobile (visible when sidebar is hidden) -->
-  <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
 
-  <!-- Feedback Popup and Overlay -->
-  <div class="feedback-overlay" id="feedbackOverlay"></div>
-  <div class="feedback-popup" id="feedbackPopup">
-    <div class="popup-header">
-      <h2>Feedback</h2>
-      <button class="close-btn" onclick="closeFeedback()">×</button>
+    <!-- Feedback Popup and Overlay -->
+    <div class="feedback-overlay" id="feedbackOverlay"></div>
+    <div class="feedback-popup" id="feedbackPopup">
+      <div class="popup-header">
+        <h2>Feedback</h2>
+        <button class="close-btn" onclick="closeFeedback()">×</button>
+      </div>
+      <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="feedbackName">Name</label>
+        <input type="text" id="feedbackName" name="feedbackName" required>
+        
+        <label for="feedbackEmail">Email</label>
+        <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+        
+        <label for="feedbackType">Feedback Type</label>
+        <select id="feedbackType" name="feedbackType">
+          <option value="bug">Bug Report</option>
+          <option value="general">General Feedback</option>
+          <option value="feature">Feature Request</option>
+        </select>
+        
+        <label for="feedbackMessage">Feedback</label>
+        <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+        
+        <button type="submit">Submit Feedback</button>
+      </form>
     </div>
-    <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
-      <label for="feedbackName">Name</label>
-      <input type="text" id="feedbackName" name="feedbackName" required>
-      
-      <label for="feedbackEmail">Email</label>
-      <input type="email" id="feedbackEmail" name="feedbackEmail" required>
-      
-      <label for="feedbackType">Feedback Type</label>
-      <select id="feedbackType" name="feedbackType">
-        <option value="bug">Bug Report</option>
-        <option value="general">General Feedback</option>
-        <option value="feature">Feature Request</option>
-      </select>
-      
-      <label for="feedbackMessage">Feedback</label>
-      <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
-      
-      <button type="submit">Submit Feedback</button>
-    </form>
-  </div>
 
-  <!-- Coming Soon Popup and Overlay -->
-  <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
-  <div class="popup" id="comingSoonPopup" style="display:none;">
-    <div class="popup-header">
-      <h2>Coming Soon</h2>
-      <button class="close-btn" onclick="closeComingSoon()">×</button>
-    </div>
-    <div class="popup-content">
-      <p>Feature coming soon!</p>
-    </div>
-    <div class="button-container">
-      <button onclick="closeComingSoon()">OK</button>
+    <!-- Coming Soon Popup and Overlay -->
+    <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+    <div class="popup" id="comingSoonPopup" style="display:none;">
+      <div class="popup-header">
+        <h2>Coming Soon</h2>
+        <button class="close-btn" onclick="closeComingSoon()">×</button>
+      </div>
+      <div class="popup-content">
+        <p>Feature coming soon!</p>
+      </div>
+      <div class="button-container">
+        <button onclick="closeComingSoon()">OK</button>
+      </div>
     </div>
   </div>
   
   <script src="js/script.js"></script>
+  <script type="module">
+    import { db, auth } from "./js/firebase.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+    //fetch name
+
+    async function fetchName(userEmail) {
+      const userDoc = doc(db, "users", userEmail);
+      const userSnap = await getDoc(userDoc);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        console.log("User data:", userData);
+        // change all "John Doe"s to the user's name
+        document.querySelectorAll("span").forEach((span) => {
+          if (span.textContent === "John Doe") {
+            span.textContent = userData.name;
+          }
+        });
+
+      } else {
+        console.log("User data not found.");
+      }
+    }
+
+
+
+    auth.onAuthStateChanged(async (user) => {
+      console.log("Auth state changed:", user);
+
+      if (user) {
+          // User is logged in, access their email
+          const userEmail = user.email;
+          console.log("User email:", userEmail);
+
+          // Fetch tastings once the auth state is changed
+          await fetchName(userEmail);
+          // class everything display block
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".everything").style.display = "block";
+      } else {
+          // User is not logged in, redirect to login page
+          console.log("User not logged in, redirecting to login.");
+          window.location.href = "../login.html"; // Adjust the path as needed
+      }
+  });
+    
+    
+  </script>
 </body>
 </html>

@@ -1,10 +1,10 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const searchBar = document.querySelector(".search-bar");
   const searchButton = document.querySelector(".search-btn");
-  const tastingCards = document.querySelectorAll(".tasting-card");
 
   function filterTastings() {
+    // Re-select tasting cards each time to capture dynamically generated cards
+    const tastingCards = document.querySelectorAll(".tasting-card");
     const query = searchBar.value.toLowerCase();
     tastingCards.forEach(card => {
       const title = card.querySelector("h3").textContent.toLowerCase();
