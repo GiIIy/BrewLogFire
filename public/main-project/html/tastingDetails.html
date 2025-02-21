@@ -1,0 +1,322 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-1TKGEWT9MJ');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Coffee - BrewLog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/tastingDetails.css" />
+  <script type="module" src="../js/main.js"></script>
+
+
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1><a href="../dashboard.html">BrewLog</a></h1>
+      <div class="sidebar-hamburger" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <button onclick="location.href='addTasting.html';"><span class="plus-icon">+</span> Add New Tasting</button>
+    <nav>
+      <a href="../dashboard.html">Home</a>
+      <a href="myTastings.html">My Tastings</a>
+      <a href="coffeeMap.html">Coffee Map</a>
+      <div class="lineBreak"></div>
+      <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+      <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+      <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
+    </nav>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="top-nav">
+      <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+      <div class="profile" onclick="window.location.href='profile.html';">
+        <div>
+          <span>John Doe</span>
+          <p>Coffee Master</p>
+        </div>
+        <div class="profile-image"></div>
+      </div>
+    </div>
+    
+    <div class="back-container">
+      <button onclick="window.history.back();">&#8592; Back</button>
+    </div>
+    
+    <!-- Add Tasting Page Content -->
+    <div class="add-tasting-container" id="addTastingContainer">
+      <!-- Block Header: Title & Mode Toggle -->
+      <div class="block-header">
+        <div class="block-title">
+          <h2>Test Coffee</h2>
+        </div>
+        <div class="mode-toggle">
+          <button id="toggleModeButton" onclick="showComingSoon()">Edit</button>
+        </div>
+      </div>
+      <!-- Tab Buttons -->
+      <div class="add-tasting-tabs">
+        <button class="tab-button active" data-tab="coffeeInfoTab">Coffee Information</button>
+        <button class="tab-button" data-tab="coffeePrepTab">Coffee Preparation</button>
+        <button class="tab-button" data-tab="tastingNotesTab">Tasting Notes</button>
+      </div>
+
+      <!-- Tab Content: Coffee Information -->
+      <div class="tab-content active" id="coffeeInfoTab">
+        <!-- Simple Mode Fields -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="coffee-name">Coffee Name</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="form-group">
+            <label for="brand-name">Brand Name</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="origin">Origin</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="form-group">
+            <label for="processing">Processing Method</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="roast">Roast Level</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="form-group">
+            <label for="bean">Bean Type</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <!-- Advanced fields for Coffee Information -->
+        <div class="advanced-field">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="producer">Producer &amp; Farm/Finca</label>
+              <p>This is Test Data</p>
+            </div>
+            <div class="form-group">
+              <label for="elevation">Elevation</label>
+              <p>This is Test Data</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="price">Price</label>
+              <p>This is Test Data</p>
+            </div>
+            <div class="form-group">
+              <label for="links">Purchase Link(s)</label>
+              <p>This is Test Data</p>
+            </div>
+          </div>
+          <div class="full-row">
+            <label for="more-info">More Information</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="image-upload" onclick="alert('Open Image Full Screen');">
+            Image Here
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content: Coffee Preparation -->
+      <div class="tab-content" id="coffeePrepTab">
+        <!-- Simple Mode Fields -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="brew-method">Brew Method</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="form-group">
+            <label for="grind-setting">Grind Setting</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="water-temp">Water Temperature (°C)</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="form-group">
+            <label for="brew-time">Brew Time (mm:ss)</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="coffee-dose">Coffee Dose (g)</label>
+            <p>This is Test Data</p>
+          </div>
+          <div class="form-group">
+            <label for="water-volume">Water Volume (ml)</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <!-- Advanced fields for Coffee Preparation -->
+        <div class="advanced-field">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="equipment-used">Equipment Used</label>
+              <p>This is Test Data</p>
+            </div>
+            <div class="form-group">
+              <label for="filter-type">Filter Type</label>
+              <p>This is Test Data</p>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="bloom-time">Bloom Time (sec)</label>
+              <p>This is Test Data</p>
+            </div>
+            <div class="form-group">
+              <label for="total-brew-time">Total Brew Time (sec)</label>
+              <p>This is Test Data</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="improvement">Next Steps to Improve Brew</label>
+            <p>This is Test Data</p>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Tab Content: Tasting Notes -->
+      <div class="tab-content" id="tastingNotesTab">
+        <!-- Simple Mode Fields -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="aroma">Aroma</label>
+            <p>This is Test Data</p>
+          </div>
+        
+          <div class="form-group">
+            <label for="acidity">Acidity</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="body">Body</label>
+            <p>This is Test Data</p>
+          </div>
+
+          <div class="form-group">
+            <label for="flavor-notes">Flavor Notes</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+
+          
+
+        <!-- Advanced fields for Tasting Notes -->
+        <div class="advanced-field">
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="sweetness">Sweetness Level</label>
+              <p>This is Test Data</p>
+            </div>
+            <div class="form-group">
+              <label for="aftertaste">Aftertaste</label>
+              <p>This is Test Data</p>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="improvement">Notes</label>
+            <p>This is Test Data</p>
+          </div>
+        </div>
+
+        <div class="form-group" style="align-items: center;">
+          <label for="rating"></label>
+          <div class="ratingSys" id="ratingSys">
+            <div class="bean on" data-value="1">☕</div>
+            <div class="bean off" data-value="2">☕</div>
+            <div class="bean off" data-value="3">☕</div>
+            <div class="bean off" data-value="4">☕</div>
+            <div class="bean off" data-value="5">☕</div>
+          </div>
+          <input type="hidden" id="ratingValue" name="rating" value="0">
+        </div>
+      </div>
+
+  
+  <!-- Fixed Hamburger for Mobile -->
+  <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <!-- Feedback Popup and Overlay -->
+  <div class="feedback-overlay" id="feedbackOverlay"></div>
+  <div class="feedback-popup" id="feedbackPopup">
+    <div class="popup-header">
+      <h2>Feedback</h2>
+      <button class="close-btn" onclick="closeFeedback()">×</button>
+    </div>
+    <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
+      <label for="feedbackName">Name</label>
+      <input type="text" id="feedbackName" name="feedbackName" required>
+      
+      <label for="feedbackEmail">Email</label>
+      <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+      
+      <label for="feedbackType">Feedback Type</label>
+      <select id="feedbackType" name="feedbackType">
+        <option value="bug">Bug Report</option>
+        <option value="general">General Feedback</option>
+        <option value="feature">Feature Request</option>
+      </select>
+      
+      <label for="feedbackMessage">Feedback</label>
+      <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+      
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
+  <!-- Coming Soon Popup and Overlay -->
+  <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+  <div class="popup" id="comingSoonPopup" style="display:none;">
+    <div class="popup-header">
+      <h2>Coming Soon</h2>
+      <button class="close-btn" onclick="closeComingSoon()">×</button>
+    </div>
+    <div class="popup-content">
+      <p>Feature coming soon!</p>
+    </div>
+    <div class="button-container">
+      <button onclick="closeComingSoon()">OK</button>
+    </div>
+  </div>
+  <script src="../js/tastingDetails.js"></script>
+</body>
+</html>

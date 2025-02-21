@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1TKGEWT9MJ');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - BrewLog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/profile.css" />
+  <script type="module" src="../js/main.js"></script>
+
+
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1 onclick="location.href='../dashboard.html';">BrewLog</h1>
+      <!-- Hamburger icon for mobile -->
+      <div class="sidebar-hamburger" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <button onclick="location.href='addTasting.html';">
+      <span class="plus-icon">+</span> Add New Tasting
+    </button>
+    <nav>
+      <a href="../dashboard.html">Home</a>
+      <a href="#">My Tastings</a>
+      <a href="coffeeMap.html">Coffee Map</a>
+      <div class="lineBreak"></div>
+      <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+      <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+      <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Navigation -->
+    <div class="top-nav">
+      <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+      <div class="profile">
+        <div>
+          <span>John Doe</span>
+          <p>Coffee Master</p>
+        </div>
+        <div class="profile-image"></div>
+      </div>
+    </div>
+
+    <!-- Back Button Container -->
+    <div class="back-container">
+      <button onclick="window.history.back();">&#8592; Back</button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="page-container">
+      <h1>My Profile</h1>
+      <div class="profile-section">
+        <div class="profile-picture" style="background-image: url('https://via.placeholder.com/120');"></div>
+        <div class="profile-info">
+          <h2>John Doe</h2>
+          <p>Email: john@example.com</p>
+          <p>Location: New York, NY</p>
+          <p>Member since: January 2022</p>
+          <button class="edit-btn" onclick="showComingSoon()">Edit Profile</button>
+        </div>
+      </div>
+      <!-- Additional profile details can be added here -->
+      <div>
+        <h3>About Me</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, nec semper lorem quam in massa.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed Hamburger for Mobile -->
+  <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+
+  <!-- Feedback Popup and Overlay -->
+  <div class="feedback-overlay" id="feedbackOverlay"></div>
+  <div class="feedback-popup" id="feedbackPopup">
+    <div class="popup-header">
+      <h2>Feedback</h2>
+      <button class="close-btn" onclick="closeFeedback()">×</button>
+    </div>
+    <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl" >
+      <label for="feedbackName">Name</label>
+      <input type="text" id="feedbackName" name="feedbackName" required>
+      <label for="feedbackEmail">Email</label>
+      <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+      <label for="feedbackType">Feedback Type</label>
+      <select id="feedbackType" name="feedbackType">
+        <option value="bug">Bug Report</option>
+        <option value="general">General Feedback</option>
+        <option value="feature">Feature Request</option>
+      </select>
+      <label for="feedbackMessage">Feedback</label>
+      <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
+  <!-- Coming Soon Popup and Overlay -->
+  <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+  <div class="popup" id="comingSoonPopup" style="display:none;">
+    <div class="popup-header">
+      <h2>Coming Soon</h2>
+      <button class="close-btn" onclick="closeComingSoon()">×</button>
+    </div>
+    <div class="popup-content">
+      <p>Feature coming soon!</p>
+    </div>
+    <div class="button-container">
+      <button onclick="closeComingSoon()">OK</button>
+    </div>
+  </div>
+
+  <!-- Leaflet JS (if needed for other pages) -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>
