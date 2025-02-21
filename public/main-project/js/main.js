@@ -65,9 +65,6 @@ document.getElementById("login-google-btn").addEventListener("click", async () =
             // If the user exists, go directly to the dashboard
             window.location.href = "../dashboard.html";
         }
-    } catch (error) {
-        console.error("❌ Google Login Failed:", error.message);
-        alert("Google Login failed. Please try again.");
     }
 });
 
