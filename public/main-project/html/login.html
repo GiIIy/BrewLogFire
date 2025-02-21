@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/main.js"></script>
+
+</head>
+<body>
+
+    <h2>Login to BrewLog</h2>
+
+    <!-- Email & Password Login -->
+    <input type="email" id="email" placeholder="Enter email" required>
+    <input type="password" id="password" placeholder="Enter password" required>
+    <button id="login-email-btn">Login with Email</button>
+    <button id="register-btn">Register</button>
+
+    <!-- Google Login -->
+    <button id="login-google-btn">Login with Google</button>
+    
+    <!-- Logout -->
+    <button id="logout-btn" style="display: none;">Logout</button>
+    
+    <p id="user-info"></p>
+
+</body>
+</html>
