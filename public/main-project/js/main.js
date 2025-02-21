@@ -3,14 +3,11 @@ import { auth, db } from "./firebase.js";
 import { 
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword, 
-    signInWithPopup, 
-    GoogleAuthProvider, 
     signOut, 
     onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
-import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-const googleProvider = new GoogleAuthProvider();
 
 // 📌 Email/Password Login
 document.getElementById("login-email-btn").addEventListener("click", async () => {
@@ -23,7 +20,6 @@ document.getElementById("login-email-btn").addEventListener("click", async () =>
         window.location.href = "../dashboard.html";
     } catch (error) {
         console.error("❌ Login failed:", error.message);
-        alert("Login failed. Please check your email and password.");
     }
 });
 
@@ -39,33 +35,15 @@ document.getElementById("register-btn").addEventListener("click", async () => {
         document.getElementById("registration-section").style.display = "block"; 
         // Hide the input group
         document.getElementById("login-box").style.display = "none";
+
+        
+
     } catch (error) {
         console.error("❌ Registration failed:", error.message);
-        alert("Registration failed. Please try again.");
     }
 });
 
-// 📌 Google Login
-document.getElementById("login-google-btn").addEventListener("click", async () => {
-    
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
-    console.log("✅ Google Login Success:", user);
 
-    // Check if the user already has a profile in Firestore
-    const userRef = doc(db, "users", user.email);
-    const userDoc = await getDoc(userRef);
-
-    if (!userDoc.exists()) {
-        // If the user is new, show the profile completion form
-        console.log("New user, showing profile form...");
-        document.getElementById("registration-section").style.display = "block";
-        document.getElementById("login-box").style.display = "none";
-    } else {
-        // If the user exists, go directly to the dashboard
-        window.location.href = "../dashboard.html";
-    }
-});
 
 // 📌 Submit Profile Data after Registration
 document.getElementById("submit-profile-btn").addEventListener("click", async () => {
@@ -99,7 +77,6 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
         window.location.href = ""; // Redirect to login page after logout
     } catch (error) {
         console.error("❌ Logout failed:", error.message);
-        alert("Logout failed. Please try again.");
     }
 });
 
@@ -110,18 +87,14 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById("logout-btn").style.display = "block";
         document.getElementById("login-email-btn").style.display = "none";
         document.getElementById("register-btn").style.display = "none";
-        document.getElementById("login-google-btn").style.display = "none";
         document.getElementById("email").style.display = "none";
         document.getElementById("password").style.display = "none";
-        document.getElementById("divider").style.display = "none";
     } else {
         document.getElementById("user-info").textContent = "";
         document.getElementById("logout-btn").style.display = "none";
         document.getElementById("login-email-btn").style.display = "block";
         document.getElementById("register-btn").style.display = "block";
-        document.getElementById("login-google-btn").style.display = "block";
         document.getElementById("email").style.display = "block";
         document.getElementById("password").style.display = "block";
-        document.getElementById("divider").style.display = "block";
     }
 });
