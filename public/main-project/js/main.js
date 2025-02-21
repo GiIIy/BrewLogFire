@@ -47,24 +47,23 @@ document.getElementById("register-btn").addEventListener("click", async () => {
 
 // 📌 Google Login
 document.getElementById("login-google-btn").addEventListener("click", async () => {
-    try {
-        const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
-        console.log("✅ Google Login Success:", user);
+    
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+    console.log("✅ Google Login Success:", user);
 
-        // Check if the user already has a profile in Firestore
-        const userRef = doc(db, "users", user.email);
-        const userDoc = await getDoc(userRef);
+    // Check if the user already has a profile in Firestore
+    const userRef = doc(db, "users", user.email);
+    const userDoc = await getDoc(userRef);
 
-        if (!userDoc.exists()) {
-            // If the user is new, show the profile completion form
-            console.log("New user, showing profile form...");
-            document.getElementById("registration-section").style.display = "block";
-            document.getElementById("login-box").style.display = "none";
-        } else {
-            // If the user exists, go directly to the dashboard
-            window.location.href = "../dashboard.html";
-        }
+    if (!userDoc.exists()) {
+        // If the user is new, show the profile completion form
+        console.log("New user, showing profile form...");
+        document.getElementById("registration-section").style.display = "block";
+        document.getElementById("login-box").style.display = "none";
+    } else {
+        // If the user exists, go directly to the dashboard
+        window.location.href = "../dashboard.html";
     }
 });
 
