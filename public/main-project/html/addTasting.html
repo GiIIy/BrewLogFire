@@ -441,6 +441,8 @@
                 const coffeeCount = coffeeQuerySnapshot.size + 1; // Assuming the count starts from 1
                 const docId = `${userEmail}-${coffeeCount}`;
 
+                
+
                 // Create the coffee data object
                 const coffeeData = {
                     coffeeName,
@@ -492,6 +494,24 @@
             alert("Please log in first.");
         }
     });
+
+    auth.onAuthStateChanged(async (user) => {
+      console.log("Auth state changed:", user);
+
+      if (user) {
+          // User is logged in, access their email
+          const userEmail = user.email;
+          
+          // Get the user's name from database
+          const userDoc = await getDoc(doc(db, "users", userEmail));
+          const userName = userDoc.data().name;
+
+          // Update the profile name
+          document.querySelector(".profile span").textContent = userName; 
+      }
+    });
+
+    
 
   </script>
   

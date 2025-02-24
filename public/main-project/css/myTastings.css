@@ -338,19 +338,20 @@
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       gap: 1px;
       margin-top: 10px;
-    }
+  }
 
     .bean {
-      font-size: 20px;
+      font-size: 24px;
       line-height: 1;
     }
 
     .on {
-      color: #6B09FF;
+      color: #000;
     }
 
     .off {
-      color: #ddd;
+      color: grey; 
+      filter: grayscale(100%);
     }
 
     /* Fixed Hamburger for Mobile */

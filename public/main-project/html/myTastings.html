@@ -150,7 +150,7 @@
   <script src="../js/myTastings.js"></script>
   <script type="module">
     import { db, auth } from "../js/firebase.js";
-    import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    import { collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
     // Function to fetch tastings from Firestore
     async function fetchTastings(userEmail) {
@@ -233,12 +233,13 @@
         brewMethod.textContent = `Brew Method: ${coffee.brewMethod}`;
 
         const ratingSys = document.createElement('div');
+        const rating = Number(coffee.rating); // Convert to a number
         ratingSys.classList.add('ratingSys');
         // Assuming you store the rating as a number from 1 to 5
         for (let i = 1; i <= 5; i++) {
             const bean = document.createElement('div');
             bean.classList.add('bean');
-            bean.classList.add(i <= coffee.rating ? 'on' : 'off');
+            bean.classList.add(i <= rating ? 'on' : 'off');
             bean.textContent = '☕';
             ratingSys.appendChild(bean);
         }
@@ -260,8 +261,15 @@
       if (user) {
           // User is logged in, access their email
           const userEmail = user.email;
-          console.log("User email:", userEmail);
+          
+          // Get the user's name from database
+          const userDoc = await getDoc(doc(db, "users", userEmail));
+          const userName = userDoc.data().name;
 
+          // Update the profile name
+          document.querySelector(".profile span").textContent = userName; 
+
+          
           // Fetch tastings once the auth state is changed
           await fetchTastings(userEmail);
 
