@@ -1,20 +1,3 @@
-
-    // Close the Welcome popup and hide the overlay when the user clicks "Accept"
-    function closePopup() {
-      document.querySelector('.popup').style.display = 'none';
-      document.querySelector('#overlay').style.display = 'none';
-      localStorage.setItem('popupClosed', 'true');
-    }
-  
-    // Show the Welcome popup on page load if not closed before
-    window.onload = function() {
-      const checkPop = localStorage.getItem('popupClosed');
-      if (checkPop != 'true'){
-        document.querySelector('.popup').style.display = 'block';
-        document.querySelector('#overlay').style.display = 'flex';
-      }
-    };
-  
     function toggleMenu() {
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('visible');

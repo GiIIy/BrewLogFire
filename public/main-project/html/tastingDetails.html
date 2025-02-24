@@ -392,6 +392,9 @@
                     bean.classList.remove('on');
                 }
             });
+             // show screen
+        document.querySelector(".loading").style.display = "none";
+        document.querySelector(".everything").style.display = "block";
 
         } else {
             console.log("No such document!");
@@ -399,10 +402,6 @@
     }
 
     fetchTastingDetails();
-
-    // show screen
-    document.querySelector(".loading").style.display = "none";
-    document.querySelector(".everything").style.display = "block";
 
 
 

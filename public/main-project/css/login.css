@@ -105,6 +105,11 @@ textarea {
     display: none;
 }
 
+.incorrect{
+    color: red;
+    text-align: center; 
+}
+
 /* Responsive adjustments */
 @media (max-width: 480px) {
     .login-box {

@@ -201,7 +201,16 @@
         const tastingImage = document.createElement('div');
         tastingImage.classList.add('tasting-image');
         const img = document.createElement('img');
-        img.src = coffee.brewMethod === 'Espresso' ? "../assets/espresso.png" : "../assets/french-press.webp";
+        const brewMethodImages = {
+            "Espresso": "../assets/espresso.png",
+            "French Press": "../assets/french-press.webp",
+            "Pour Over": "../assets/pour-over.webp",
+            "Aeropress": "../assets/aeropress.webp",
+            "V60": "../assets/V60.webp",
+        };
+
+        img.src = brewMethodImages[coffee.brewMethod] || "../assets/default.png";
+
         img.alt = coffee.brewMethod;
         img.width = 75;
         img.height = 75;

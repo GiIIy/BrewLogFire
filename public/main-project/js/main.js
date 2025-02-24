@@ -19,7 +19,9 @@ document.getElementById("login-email-btn").addEventListener("click", async () =>
         // go to dashboard
         window.location.href = "../dashboard.html";
     } catch (error) {
+        document.getElementById("incorrect").style.display = "block";
         console.error("❌ Login failed:", error.message);
+       
     }
 });
 
