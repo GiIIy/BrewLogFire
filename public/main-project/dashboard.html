@@ -213,6 +213,13 @@
           const userTastingsQuery = query(tastingsRef, where("userEmail", "==", userEmail));
           const querySnapshot = await getDocs(userTastingsQuery);
 
+          // get users name and save as userName
+          const userDoc = doc(db, "users", userEmail);
+          const userSnap = await getDoc(userDoc);
+          const userData = userSnap.data();
+          const userName = userData.name;
+
+
           if (querySnapshot.empty) {
               console.log("No tastings found.");
               document.querySelectorAll("#tastingTotal, #tastingWeek").forEach((p) => p.textContent = "0");
@@ -256,19 +263,7 @@
           // Update favorite coffee section with the most recent tasting
           const latestTasting = tastings[0];
           document.querySelector(".favCoffee h3").textContent = latestTasting.name;
-
-          // get users name
-          const userDoc = doc(db, "users", userEmail);
-          const userSnap = getDoc(userDoc);
-
-          if (userSnap.exists()) {
-              const userData = userSnap.data();
-              document.querySelector(".favCoffee span").textContent = userData.name;
-          } else {
-              console.log("User data not found.");
-              document.querySelector(".favCoffee span").textContent = "John Doe";
-          }
-
+          document.querySelector(".favCoffee span").textContent = userName;
           const rating = document.querySelector(".favCoffee .ratingSys");
           const ratingValue = Math.floor(Math.random() * 5) + 1;  // Random rating between 1 and 5
           rating.innerHTML = "☕".repeat(ratingValue) + "☕".repeat(5 - ratingValue);
