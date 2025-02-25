@@ -82,6 +82,9 @@
             <p>Location: New York, NY</p>
             <p>Member since: January 2022</p>
             <button class="edit-btn" onclick="showComingSoon()">Edit Profile</button>
+    
+            <!-- Logout button that send to login.html-->
+            <button class="logout-btn" onclick="location.href='login.html';">Logout</button>
           </div>
         </div>
         <!-- Additional profile details can be added here -->
@@ -170,7 +173,6 @@
         console.error("User data not found.");
       }
     }
-
 
 
     auth.onAuthStateChanged(async (user) => {

@@ -320,3 +320,22 @@
       cursor: pointer;
       font-weight: bold;
     }
+
+    .logout-btn {
+      background-color: #FF3D00;
+      color: white;
+      border: none;
+      padding: 13px;
+      width: 100%;
+      margin-bottom: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* gap above */
+      margin-top: 20px;
+    }
