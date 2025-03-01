@@ -81,10 +81,16 @@
             <p>Email: john@example.com</p>
             <p>Location: New York, NY</p>
             <p>Member since: January 2022</p>
-            <button class="edit-btn" onclick="showComingSoon()">Edit Profile</button>
-    
+            <div class="button-grouping">
+              <button class="edit-btn" onclick="showComingSoon()">Edit Profile</button>
+              <!-- Manage Subscription Button to link -->
+              <button class="subscription-btn" onclick="location.href='https://billing.stripe.com/p/login/00g8zXbUB69DbpS6oo';">Manage Subscription</button>
+            </div>
+
             <!-- Logout button that send to login.html-->
             <button class="logout-btn" onclick="location.href='login.html';">Logout</button>
+
+            
           </div>
         </div>
         <!-- Additional profile details can be added here -->
@@ -198,7 +204,7 @@
       } else {
           // User is not logged in, redirect to login page
           console.log("User not logged in, redirecting to login.");
-          window.location.href = "../login.html"; // Adjust the path as needed
+          window.location.href = "login.html"; // Adjust the path as needed
       }
   });
 

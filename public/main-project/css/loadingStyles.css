@@ -9,7 +9,6 @@
 
 .loading {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -17,28 +16,26 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
-  text-align: center; /* Ensure text is centered */
-  padding: 20px;
-  background: white; /* Ensure visibility */
+  z-index: 9999; /* Ensure loading screen stays on top */
 }
 
 .loading h1 {
-  font-size: 5vw; /* Responsive font size */
+  font-size: 24px;
   font-weight: 600;
-  margin-bottom: 10px;
 }
 
 .loading img {
-  width: 8vw; /* Responsive spinner size */
-  height: 8vw;
-  margin: 15px 0;
+  width: 30px;
+  height: 30px;
+  margin-left: 20px;
 }
 
 .loading p {
-  font-size: 3.5vw;
-  max-width: 80%; /* Prevent text from stretching too much */
-  margin: 5px 0;
+  font-size: 14px;
+}
+
+.loading p, .loading h1 {
+  margin: 10px 0;
 }
 
 .loading img {
@@ -54,22 +51,3 @@
   }
 }
 
-/* Mobile-specific adjustments */
-@media (max-width: 600px) {
-  .loading {
-    padding: 10px;
-  }
-
-  .loading h1 {
-    font-size: 6vw;
-  }
-
-  .loading p {
-    font-size: 4vw;
-  }
-
-  .loading img {
-    width: 10vw;
-    height: 10vw;
-  }
-}

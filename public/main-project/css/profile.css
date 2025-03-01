@@ -359,3 +359,23 @@
       /* gap above */
       margin-top: 20px;
     }
+
+    .button-grouping{
+      display: flex;
+      gap: 10px;
+    }
+
+    .subscription-btn {
+      background-color: #00E46A;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .subscription-btn:hover {
+      background-color: #00cc5a;
+    }

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-1TKGEWT9MJ');
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BrewLog Lifetime Access</title>
@@ -135,25 +146,61 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    .pricing-table {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="header">
     <h1>BrewLog Lifetime Access!</h1>
-    <p>One-time payment for unlimited access.</p>
+    <p>Pre-Sale Pricing – Limited Time Offer!</p>
   </div>
 
-  <div class="pricing-option">
-    <div class="icon">🔒</div>
-    <h3>Lifetime Access</h3>
-    <ul>
-      <li>Lifetime access to BrewLog!</li>
-      <li>One-time payment</li>
-      <li>Lowest Price Ever!</li>
-    </ul>
-    <p class="price"><span class="old-price">$74.99</span> $25</p>
-    <button class="signup" onclick="location.href='https://buy.stripe.com/8wMaGS7BBdsB8NyeUX';">Get Lifetime Access</button>
+  <div class="pricing-table">
+    <div class="pricing-option">
+      <div class="icon">☕</div>
+      <h3>Monthly Subscription</h3>
+      <ul>
+        <li>Affordable and flexible, cancel anytime</li>
+        <li>Full access to all BrewLog features</li>
+        <li>Perfect for casual coffee enthusiasts</li>
+      </ul>
+      <p class="price">$0.99 /month</p>
+      <button class="signup" onclick="location.href='https://buy.stripe.com/9AQg1c7BBdsB3te148'">Subscribe Monthly</button>
+    </div>
+
+    <div class="pricing-option">
+      <div class="icon">🔥</div>
+      <h3>Yearly Subscription</h3>
+      <ul>
+        <li>Save over 15% compared to monthly</li>
+        <li>Enjoy all features with a one-time yearly payment</li>
+        <li>Best value for long-term users</li>
+      </ul>
+      <p class="price">$9.99 / year</p>
+      <button class="signup" onclick="location.href='https://buy.stripe.com/00gbKWg87ewFd3ObIN'">Subscribe Yearly</button>
+    </div>
+
+    <div class="pricing-option">
+      <div class="icon">🔒</div>
+      <h3>Lifetime Access</h3>
+      <ul>
+        <li>One-time payment, no recurring fees</li>
+        <li>Unlimited access forever</li>
+        <li>Lock in the lowest price permanently</li>
+      </ul>
+      <p class="price"><span class="old-price">$74.99</span> $25</p>
+      <button class="signup" onclick="location.href='https://buy.stripe.com/8wMaGS7BBdsB8NyeUX';">Get Lifetime Access</button>
+    </div>
   </div>
+
+  
 
   <div class="countdown" id="countdown"></div>
 
@@ -166,7 +213,7 @@
 
   <script>
     // Set the countdown date: Feb 22, 2025 23:59:59
-    const saleEndDate = new Date("Feb 22, 2025 23:59:59").getTime();
+    const saleEndDate = new Date("Mar 10, 2025 23:59:59").getTime();
 
     // Update the countdown every second
     const countdownInterval = setInterval(() => {
