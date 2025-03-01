@@ -217,10 +217,9 @@
         margin-left: 0;
       }
     }
-    /* Feedback Popup & Overlay, Coming Soon Popup, etc.
-       (Re-use same styles from your other pages) */
-    .feedback-overlay,
-    .overlay {
+    
+    /* Feedback Popup Styles */
+    .feedback-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -230,8 +229,7 @@
       z-index: 2000;
       display: none;
     }
-    .feedback-popup,
-    .popup {
+    .feedback-popup {
       position: fixed;
       top: 50%;
       left: 50%;
@@ -244,64 +242,86 @@
       z-index: 2001;
       display: none;
     }
-    .popup-header {
+    .feedback-popup .popup-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 15px;
     }
-    .popup-header h2 {
+    .feedback-popup .popup-header h2 {
       font-size: 24px;
       font-weight: bold;
       color: #6B09FF;
     }
-    .close-btn {
+    .feedback-popup .close-btn {
       background-color: transparent;
       border: none;
       font-size: 24px;
       color: #6B09FF;
       cursor: pointer;
     }
-    .close-btn:hover {
-      color: #BB00FF;
-    }
-    .popup-content {
-      font-size: 16px;
-      font-weight: bold;
-      color: #333;
-      line-height: 1.5;
-    }
-    .button-container {
+    .feedback-popup form {
       display: flex;
-      justify-content: flex-end;
-      margin-top: 20px;
+      flex-direction: column;
     }
-    .button-container button {
-      padding: 12px 20px;
+    .feedback-popup form label {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .feedback-popup form input,
+    .feedback-popup form select,
+    .feedback-popup form textarea {
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .feedback-popup form button[type="submit"] {
+      margin-top: 15px;
+      padding: 10px;
       background-color: #00E46A;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
       font-size: 16px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
     }
-    .button-container button:hover {
+    .feedback-popup form button[type="submit"]:hover {
       background-color: #00cc5a;
     }
-    body.dark-mode .feedback-popup,
-    body.dark-mode .popup {
+
+    /* Dark Mode Styling for Feedback Popup */
+    body.dark-mode .feedback-popup {
       background-color: #1f1f1f;
-      color: white;
-    }
-    body.dark-mode .leaflet-popup-content-wrapper {
-      background: #1f1f1f;
       color: #fff;
     }
-    body.dark-mode .leaflet-popup-tip {
-      background: #1f1f1f;
+    body.dark-mode .feedback-popup .popup-header h2 {
+      color: #6B09FF;
     }
+    body.dark-mode .feedback-popup .close-btn {
+      color: #6B09FF;
+    }
+    body.dark-mode .feedback-popup form label {
+      color: #fff;
+    }
+    body.dark-mode .feedback-popup form input,
+    body.dark-mode .feedback-popup form textarea,
+    body.dark-mode .feedback-popup form select {
+      background-color: #2a2a2a;
+      border: 1px solid #444;
+      color: #fff;
+    }
+    body.dark-mode .feedback-popup form button[type="submit"] {
+      background-color: #00cc5a;
+      color: #fff;
+      border: none;
+    }
+    body.dark-mode .feedback-popup form button[type="submit"]:hover {
+      background-color: #00b359;
+    }
+
+    
     .lineBreak {
       border-bottom: 1px solid #ddd;
       margin: 10px 0;

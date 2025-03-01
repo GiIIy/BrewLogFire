@@ -506,7 +506,7 @@
           const userDoc = await getDoc(doc(db, "users", userEmail));
           const userName = userDoc.data().name;
 
-          // Update the profile name
+          // Update the profile name 
           document.querySelector(".profile span").textContent = userName; 
       }
     });

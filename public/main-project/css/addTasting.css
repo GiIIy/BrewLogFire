@@ -715,14 +715,13 @@
 
   /* Timer Section */
   .timer-section {
-    background: #2c2c2c;
+    background: #fff;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
     max-width: 100%;
     margin: auto;
-    color: #fff;
+    color: #000;
     display: flex;
     align-items: center;
     justify-content: center; /* Centers content */
@@ -741,7 +740,7 @@
     font-size: 1.8rem;
     font-weight: bold;
     padding: 5px 12px;
-    background: #1e1e1e;
+    background: #fff;
     border-radius: 5px;
     min-width: 80px; 
     text-align: center;
