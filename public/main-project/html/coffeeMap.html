@@ -44,7 +44,7 @@
       <div class="lineBreak"></div>
       <a href="#" onclick="openFeedback(); return false;">Feedback</a>
       <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
-      <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
+      <a href="#" onclick="openContact(); return false;">Contact Us</a>
     </nav>
   </div>
 
@@ -68,7 +68,7 @@
     </div>
     <div class="page-container">
       <h1>Coffee Map</h1>
-      <p>This is currently just a test.</p>
+      <p>This is currently just a test page. Please feel free to leave feedback on the design!</p>
       <div id="map"></div>
     </div>
   </div>
@@ -119,8 +119,28 @@
     </div>
   </div>
 
+  <!-- Contact Popup and Overlay -->
+  <div class="feedback-overlay" id="contactOverlay"></div>
+  <div class="feedback-popup" id="contactPopup">
+    <div class="popup-header">
+      <h2>Contact Us</h2>
+      <button class="close-btn" onclick="closeContact()">×</button>
+    </div>
+    <form id="contactForm" action="https://submit-form.com/FVNiq1HKl">
+      <label for="contactName">Name</label>
+      <input type="text" id="contactName" name="contactName" required>
+      <label for="contactEmail">Email</label>
+      <input type="email" id="contactEmail" name="contactEmail" required>
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessagee" name="contactMessage" rows="4" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
+
   <!-- Leaflet JS and Map Initialization -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../js/contactPopup.js"></script>
   <script src="../js/coffeeMap.js"></script>
   <script type="module">
     import { db, auth } from "../js/firebase.js";

@@ -49,7 +49,7 @@
         <div class="lineBreak"></div>
         <a href="#" onclick="openFeedback(); return false;">Feedback</a>
         <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
-        <a href="#" onclick="showComingSoon(); return false;">Contact Us</a>
+        <a href="#" onclick="openContact(); return false;">Contact Us</a>
       </nav>
     </div>
 
@@ -84,8 +84,6 @@
             <p>Member since: January 2022</p>
             <div class="button-grouping">
               <button class="edit-btn" onclick="showComingSoon()">Edit Profile</button>
-              <!-- Manage Subscription Button to link -->
-              <button class="subscription-btn" onclick="location.href='https://billing.stripe.com/p/login/00g8zXbUB69DbpS6oo';">Manage Subscription</button>
             </div>
 
             <!-- Logout button that send to login.html-->
@@ -149,8 +147,27 @@
     </div>
   </div>
 
+  <!-- Contact Popup and Overlay -->
+  <div class="feedback-overlay" id="contactOverlay"></div>
+  <div class="feedback-popup" id="contactPopup">
+    <div class="popup-header">
+      <h2>Contact Us</h2>
+      <button class="close-btn" onclick="closeContact()">×</button>
+    </div>
+    <form id="contactForm" action="https://submit-form.com/FVNiq1HKl">
+      <label for="contactName">Name</label>
+      <input type="text" id="contactName" name="contactName" required>
+      <label for="contactEmail">Email</label>
+      <input type="email" id="contactEmail" name="contactEmail" required>
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessagee" name="contactMessage" rows="4" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
   <!-- Leaflet JS (if needed for other pages) -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../js/contactPopup.js"></script>
   <script src="../js/profile.js"></script>
   <script type="module">
     import { db, auth } from "../js/firebase.js";
