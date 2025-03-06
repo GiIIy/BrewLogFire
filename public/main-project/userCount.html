@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrewLog Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- Header -->
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 text-center">BrewLog User Dashboard</h1>
+
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h2 class="text-xl font-semibold text-gray-600">Total Users</h2>
+                <p id="totalUsers" class="text-3xl font-bold text-blue-600">Loading...</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h2 class="text-xl font-semibold text-gray-600">Users Today</h2>
+                <p id="usersToday" class="text-3xl font-bold text-green-600">Loading...</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                <h2 class="text-xl font-semibold text-gray-600">Users This Week</h2>
+                <p id="usersWeek" class="text-3xl font-bold text-purple-600">Loading...</p>
+            </div>
+        </div>
+
+        <!-- Graph -->
+        <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">User Signups Over Time</h2>
+            <canvas id="userChart"></canvas>
+        </div>
+
+        <!-- User List -->
+        <div class="mt-6 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Recent Users</h2>
+            <div id="userList" class="overflow-y-auto max-h-60">
+                <!-- Users will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db } from "./js/firebase.js";
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+        async function loadDashboard() {
+            try {
+                const usersCollection = collection(db, "users");
+                const usersSnapshot = await getDocs(usersCollection);
+                let users = usersSnapshot.docs.map(doc => doc.data());
+
+                // Update total users count
+                document.getElementById("totalUsers").innerText = users.length;
+
+                users.forEach(user => {
+                    if (user.memberSince) {
+                        const parts = user.memberSince.split('/');
+                        if (parts.length === 3) {
+                            const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // Convert DD/MM/YYYY to YYYY-MM-DD
+                            user.memberDate = new Date(formattedDate);
+                        } else {
+                            user.memberDate = null;
+                        }
+
+                        if (isNaN(user.memberDate.getTime())) {
+                            console.warn("Invalid date for user:", user);
+                            user.memberDate = null;
+                        }
+                    } else {
+                        console.warn("User missing memberSince:", user);
+                        user.memberDate = null;
+                    }
+                });
+
+
+                // Get today’s date and start of the week
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const startOfWeek = new Date(today);
+                startOfWeek.setDate(today.getDate() - today.getDay());
+
+                // Count users for today and this week
+                const usersToday = users.filter(user => user.memberDate && user.memberDate >= today).length;
+                const usersWeek = users.filter(user => user.memberDate && user.memberDate >= startOfWeek).length;
+
+                document.getElementById("usersToday").innerText = usersToday;
+                document.getElementById("usersWeek").innerText = usersWeek;
+
+                // Generate data for chart
+                let userCountsByDate = {};
+                users.forEach(user => {
+                    if (user.memberDate) {
+                        let date = user.memberDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                        userCountsByDate[date] = (userCountsByDate[date] || 0) + 1;
+                    }
+                });
+
+                // Convert object to sorted arrays
+                let dates = Object.keys(userCountsByDate).sort();
+                let counts = dates.map(date => userCountsByDate[date]);
+
+                // Display graph
+                const ctx = document.getElementById("userChart").getContext("2d");
+                new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: "Users Joined",
+                            data: counts,
+                            borderColor: "blue",
+                            backgroundColor: "rgba(0, 0, 255, 0.1)",
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    }
+                });
+                // Display recent users list (show last 10 users, sorted by newest first)
+                const userList = document.getElementById("userList");
+
+                users
+                    .filter(user => user.memberDate) // Exclude users with invalid/missing dates
+                    .sort((a, b) => b.memberDate - a.memberDate) // Sort by date (newest first)
+                    .slice(0, 10) // Get the most recent 10 users
+                    .forEach(user => {
+                        userList.innerHTML += `
+                            <div class="p-3 border-b">
+                                <p class="text-lg font-bold text-blue-700">${user.name || "Unknown User"}</p>
+                                <p class="text-sm text-gray-600">${user.about || "No description available"}</p>
+                                <p class="text-sm text-gray-500">🌍 ${user.country || "Unknown"} | Joined: ${user.memberSince || "N/A"}</p>
+                            </div>
+                        `;
+                    });
+            } catch (error) {
+                console.error("Error loading dashboard:", error);
+            }
+        }
+
+        loadDashboard();
+    </script>
+
+</body>
+</html>

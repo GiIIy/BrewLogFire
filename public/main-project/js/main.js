@@ -60,7 +60,7 @@ document.getElementById("submit-profile-btn").addEventListener("click", async ()
             email: user.email,
             country: country,
             about: about || "",
-            memberSince: new Date().toLocaleDateString()
+            memberSince: new Date().toLocaleDateString("en-GB")
         };
 
         // Save the user's profile data to Firestore
