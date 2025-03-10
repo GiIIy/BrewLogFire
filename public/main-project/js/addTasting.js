@@ -20,6 +20,10 @@
       if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
       }
+
+
+
+
       
       // Tab switching functionality
       document.querySelectorAll('.tab-button').forEach(function(btn) {
