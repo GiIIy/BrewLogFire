@@ -44,6 +44,7 @@
       <nav>
         <a href="../dashboard.html">Home</a>
         <a href="myTastings.html">My Tastings</a>
+        <a href="feedBeta.html">Feed (Beta)</a>
         <a href="coffeeMap.html">Coffee Map</a>
         <div class="lineBreak"></div>
         <a href="html/upcomingFeatures.html">Upcoming Features</a>
@@ -355,7 +356,9 @@
     import { db, auth } from "../js/firebase.js";
     import { collection, query, where, getDocs, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
+    
     window.deleteTasting = async function () {
+      // check if their email matches the one in url
       if (confirm("Are you sure you want to delete this tasting?")) {
           const docRef = doc(db, "tastings", tastingId);
           await deleteDoc(docRef);
@@ -440,6 +443,20 @@
         }
     }
 
+    window.checkPerms = function (userEmail) {
+      console.log("here");
+
+      if (tastingId.split('-')[0] == userEmail){
+        console.log("permissions");
+      }else{
+        // delete the edit button and delete button if
+        console.log("no perms")
+        document.getElementById("toggleModeButton").style.display = "none";
+        document.getElementById("deleteButton").style.display = "none";
+      }
+    }
+
+
     fetchTastingDetails();
 
     auth.onAuthStateChanged(async (user) => {
@@ -455,6 +472,7 @@
 
           // Update the profile name
           document.querySelector(".profile span").textContent = userName;
+          checkPerms(userEmail);
       } else {
           // User is not logged in, redirect to login page
           console.log("User not logged in, redirecting to login.");

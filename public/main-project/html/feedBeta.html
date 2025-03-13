@@ -11,12 +11,13 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coffee Map - BrewLog</title>
+  <title>Feed (Beta)</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="../css/coffeeMap.css" />
   <link rel="stylesheet" href="../css/feedBeta.css" />
+  <link rel="stylesheet" href="../css/loadingStyles.css" />
   <script type="module" src="../js/main.js"></script>
   <script type="module" src="../js/protect.js"></script>
   <link rel="icon" href="../assets/Brewlog.ico" type="image/x-icon">
@@ -24,117 +25,127 @@
 
 </head>
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h1 onclick="location.href='../dashboard.html';">BrewLog</h1>
-      <!-- Hamburger icon for mobile (inside sidebar header) -->
-      <div class="sidebar-hamburger" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-    </div>
-    <button onclick="location.href='addTasting.html';">
-      <span class="plus-icon">+</span> Add New Tasting
-    </button>
-    <nav>
-      <a href="../dashboard.html">Home</a>
-      <a href="myTastings.html">My Tastings</a>
-      <a href="coffeeMap.html">Coffee Map</a>
-      <div class="lineBreak"></div>
-      <a href="html/upcomingFeatures.html">Upcoming Features</a>
-      <a href="#" onclick="openFeedback(); return false;">Feedback</a>
-      <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
-      <a href="#" onclick="openContact(); return false;">Contact Us</a>
-    </nav>
+
+  <div class="loading">
+    <h1>Loading BrewLog...</h1>
+    <img src="../assets/loading.webp" alt="Loading Spinner" />
+    <p>This may take a few seconds.</p>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Top Navigation -->
-    <div class="top-nav">
-      <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
-      <div class="profile" onclick="window.location.href='profile.html';">
-        <div>
-          <span>John Doe</span>
-          <p>Coffee Master</p>
+  <div class="everything">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1 onclick="location.href='../dashboard.html';">BrewLog</h1>
+        <!-- Hamburger icon for mobile (inside sidebar header) -->
+        <div class="sidebar-hamburger" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
-        <div class="profile-image"></div>
+      </div>
+      <button onclick="location.href='addTasting.html';">
+        <span class="plus-icon">+</span> Add New Tasting
+      </button>
+      <nav>
+        <a href="../dashboard.html">Home</a>
+        <a href="myTastings.html">My Tastings</a>
+        <a href="feedBeta.html">Feed (Beta)</a>
+        <a href="coffeeMap.html">Coffee Map</a>
+        <div class="lineBreak"></div>
+        <a href="html/upcomingFeatures.html">Upcoming Features</a>
+        <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+        <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+        <a href="#" onclick="openContact(); return false;">Contact Us</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Navigation -->
+      <div class="top-nav">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        <div class="profile" onclick="window.location.href='profile.html';">
+          <div>
+            <span>John Doe</span>
+            <p>Coffee Master</p>
+          </div>
+          <div class="profile-image"></div>
+        </div>
+      </div>
+
+      <!-- My Tastings Content -->
+      <a onclick="window.history.back();" class="back-btn">&#8592; Back</a>
+      <h2 class="page-title">Feed (Beta)</h2>
+
+      <div id="feed" class="tastings-list">
+          <!-- Tastings will be inserted here -->
       </div>
     </div>
 
-    <!-- My Tastings Content -->
-    <a onclick="window.history.back();" class="back-btn">&#8592; Back</a>
-    <h2 class="page-title">Feed (Beta)</h2>
+    <!-- Fixed Hamburger for Mobile -->
+    <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
 
-    <div id="feed" class="tastings-list">
-        <!-- Tastings will be inserted here -->
+    <!-- Feedback Popup and Overlay -->
+    <div class="feedback-overlay" id="feedbackOverlay"></div>
+    <div class="feedback-popup" id="feedbackPopup">
+      <div class="popup-header">
+        <h2>Feedback</h2>
+        <button class="close-btn" onclick="closeFeedback()">×</button>
+      </div>
+      <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="feedbackName">Name</label>
+        <input type="text" id="feedbackName" name="feedbackName" required>
+        <label for="feedbackEmail">Email</label>
+        <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+        <label for="feedbackType">Feedback Type</label>
+        <select id="feedbackType" name="feedbackType">
+          <option value="bug">Bug Report</option>
+          <option value="general">General Feedback</option>
+          <option value="feature">Feature Request</option>
+        </select>
+        <label for="feedbackMessage">Feedback</label>
+        <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
     </div>
-  </div>
 
-  <!-- Fixed Hamburger for Mobile -->
-  <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
+    <!-- Coming Soon Popup and Overlay -->
+    <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+    <div class="popup" id="comingSoonPopup" style="display:none;">
+      <div class="popup-header">
+        <h2>Coming Soon</h2>
+        <button class="close-btn" onclick="closeComingSoon()">×</button>
+      </div>
+      <div class="popup-content">
+        <p>Feature coming soon!</p>
+      </div>
+      <div class="button-container">
+        <button onclick="closeComingSoon()">OK</button>
+      </div>
+    </div>
 
-  <!-- Feedback Popup and Overlay -->
-  <div class="feedback-overlay" id="feedbackOverlay"></div>
-  <div class="feedback-popup" id="feedbackPopup">
-    <div class="popup-header">
-      <h2>Feedback</h2>
-      <button class="close-btn" onclick="closeFeedback()">×</button>
+    <!-- Contact Popup and Overlay -->
+    <div class="feedback-overlay" id="contactOverlay"></div>
+    <div class="feedback-popup" id="contactPopup">
+      <div class="popup-header">
+        <h2>Contact Us</h2>
+        <button class="close-btn" onclick="closeContact()">×</button>
+      </div>
+      <form id="contactForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="contactName">Name</label>
+        <input type="text" id="contactName" name="contactName" required>
+        <label for="contactEmail">Email</label>
+        <input type="email" id="contactEmail" name="contactEmail" required>
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessagee" name="contactMessage" rows="4" required></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
     </div>
-    <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
-      <label for="feedbackName">Name</label>
-      <input type="text" id="feedbackName" name="feedbackName" required>
-      <label for="feedbackEmail">Email</label>
-      <input type="email" id="feedbackEmail" name="feedbackEmail" required>
-      <label for="feedbackType">Feedback Type</label>
-      <select id="feedbackType" name="feedbackType">
-        <option value="bug">Bug Report</option>
-        <option value="general">General Feedback</option>
-        <option value="feature">Feature Request</option>
-      </select>
-      <label for="feedbackMessage">Feedback</label>
-      <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
-      <button type="submit">Submit Feedback</button>
-    </form>
-  </div>
-
-  <!-- Coming Soon Popup and Overlay -->
-  <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
-  <div class="popup" id="comingSoonPopup" style="display:none;">
-    <div class="popup-header">
-      <h2>Coming Soon</h2>
-      <button class="close-btn" onclick="closeComingSoon()">×</button>
-    </div>
-    <div class="popup-content">
-      <p>Feature coming soon!</p>
-    </div>
-    <div class="button-container">
-      <button onclick="closeComingSoon()">OK</button>
-    </div>
-  </div>
-
-  <!-- Contact Popup and Overlay -->
-  <div class="feedback-overlay" id="contactOverlay"></div>
-  <div class="feedback-popup" id="contactPopup">
-    <div class="popup-header">
-      <h2>Contact Us</h2>
-      <button class="close-btn" onclick="closeContact()">×</button>
-    </div>
-    <form id="contactForm" action="https://submit-form.com/FVNiq1HKl">
-      <label for="contactName">Name</label>
-      <input type="text" id="contactName" name="contactName" required>
-      <label for="contactEmail">Email</label>
-      <input type="email" id="contactEmail" name="contactEmail" required>
-      <label for="contactMessage">Message</label>
-      <textarea id="contactMessagee" name="contactMessage" rows="4" required></textarea>
-      <button type="submit">Submit Feedback</button>
-    </form>
   </div>
 
 
@@ -144,125 +155,174 @@
   <script src="../js/feedBeta.js"></script>
 
   <script type="module">
+    
     import { db, auth } from "../js/firebase.js";
-    import { collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    import { collection, getDocs, doc, getDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
+    // Fetch tastings and batch fetch user names
     async function fetchTastings() {
+      try {
+        console.time("fetchTastings"); // For debugging performance
+        const tastingsRef = collection(db, "tastings");
+        const tastingsQuery = query(tastingsRef, orderBy("createdAt", "desc"));
+        const querySnapshot = await getDocs(tastingsQuery);
+        const feedContainer = document.getElementById("feed");
+
+        if (!feedContainer) {
+          console.error("Feed container not found");
+          return;
+        }
+
+        feedContainer.innerHTML = ""; // Clear previous content
+
+        // Map tastings into an array
+        const tastings = querySnapshot.docs.map(docSnap => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+        }));
+
+        // Get unique user emails to minimize Firestore calls
+        const uniqueEmails = [...new Set(tastings.map(t => t.userEmail).filter(Boolean))];
+
+        // Batch fetch all user documents once
+        let userCache = {};
+        if (uniqueEmails.length) {
+          const userDocs = await Promise.all(uniqueEmails.map(email => getDoc(doc(db, "users", email))));
+          userDocs.forEach((snap, index) => {
+            userCache[uniqueEmails[index]] = snap.exists() ? snap.data().name || "Anonymous" : "Anonymous";
+          });
+        }
+
+        // Render each tasting card using the cached user names
+        tastings.forEach(tasting => {
+          const usersName = userCache[tasting.userEmail] || "Anonymous";
+          const tastingElement = createTastingCard(tasting, usersName);
+          feedContainer.appendChild(tastingElement);
+        });
+
+        console.timeEnd("fetchTastings");
+      } catch (error) {
+        console.error("Error fetching tastings:", error);
+      }
+    }
+
+    // Create a tasting card element
+    function createTastingCard(tastingData, usersName) {
+      const tastingCard = document.createElement("div");
+      tastingCard.classList.add("tasting-card");
+      tastingCard.onclick = function() {
+        window.location.href = `tastingDetails.html?id=${tastingData.id}`;
+      };
+
+      const tastingCardContent = document.createElement("div");
+      tastingCardContent.classList.add("tasting-card-content");
+
+      // Tasting image
+      const tastingImage = document.createElement("div");
+      tastingImage.classList.add("tasting-image");
+      const img = document.createElement("img");
+      const brewMethodImages = {
+        "Espresso": "../assets/espresso.png",
+        "French Press": "../assets/french-press.webp",
+        "Pour Over": "../assets/pour-over.webp",
+        "Aeropress": "../assets/aeropress.webp",
+        "V60": "../assets/V60.webp",
+      };
+      img.src = brewMethodImages[tastingData.brewMethod] || "../assets/default.png";
+      img.alt = tastingData.brewMethod;
+      img.width = 75;
+      img.height = 75;
+      tastingImage.appendChild(img);
+
+      // Tasting text container
+      const tastingText = document.createElement("div");
+      tastingText.classList.add("tasting-text");
+
+      // Header: Coffee name and brand
+      const tastingCardHeader = document.createElement("div");
+      tastingCardHeader.classList.add("tasting-card-header");
+      const coffeeName = document.createElement("h3");
+      coffeeName.textContent = tastingData.coffeeName || "Unknown Coffee";
+      const brandName = document.createElement("p");
+      brandName.textContent = `by ${tastingData.brandName || "Unknown Brand"}`;
+      tastingCardHeader.appendChild(coffeeName);
+      tastingCardHeader.appendChild(brandName);
+
+      // User's name
+      const userName = document.createElement("p");
+      userName.classList.add("user-name");
+      userName.textContent = `Tasted by: ${usersName}`;
+
+      // Brew method
+      const brewMethod = document.createElement("p");
+      brewMethod.classList.add("brew-method");
+      brewMethod.textContent = `Brew Method: ${tastingData.brewMethod || "No notes provided"}`;
+
+      // Rating system
+      const ratingSys = document.createElement("div");
+      ratingSys.classList.add("ratingSys");
+      const rating = Number(tastingData.rating) || 0;
+      for (let i = 1; i <= 5; i++) {
+        const bean = document.createElement("div");
+        bean.classList.add("bean", i <= rating ? "on" : "off");
+        bean.textContent = "☕";
+        ratingSys.appendChild(bean);
+      }
+
+      // Created at date
+      let createdAtText = "Date Unknown";
+      if (tastingData.createdAt) {
+        const createdAt = tastingData.createdAt;
+        if (createdAt.toDate) {
+          const dateObj = createdAt.toDate();
+          const day = String(dateObj.getDate()).padStart(2, "0");
+          const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+          const year = dateObj.getFullYear();
+          const hours = String(dateObj.getHours()).padStart(2, "0");
+          const minutes = String(dateObj.getMinutes()).padStart(2, "0");
+          const seconds = String(dateObj.getSeconds()).padStart(2, "0");
+          createdAtText = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
+        } else {
+          createdAtText = createdAt;
+        }
+      }
+      const createdAtElement = document.createElement("p");
+      createdAtElement.classList.add("created-at");
+      createdAtElement.textContent = createdAtText;
+
+      // Assemble the tasting text block
+      tastingText.appendChild(tastingCardHeader);
+      tastingText.appendChild(userName);
+      tastingText.appendChild(brewMethod);
+      tastingText.appendChild(ratingSys);
+      tastingText.appendChild(createdAtElement);
+
+      // Assemble the complete tasting card
+      tastingCardContent.appendChild(tastingImage);
+      tastingCardContent.appendChild(tastingText);
+      tastingCard.appendChild(tastingCardContent);
+
+      return tastingCard;
+    }
+
+    // Listen for auth state changes
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
         try {
-            const tastingsRef = collection(db, "tastings");
-            const querySnapshot = await getDocs(tastingsRef);
-            const feedContainer = document.getElementById("feed");
-
-            if (!feedContainer) {
-                console.error("Feed container not found");
-                return;
-            }
-
-            feedContainer.innerHTML = ""; // Clear existing content
-
-            querySnapshot.forEach((doc) => {
-                const tastingData = doc.data();
-                tastingData.id = doc.id;
-                const tastingElement = createTastingCard(tastingData);
-                feedContainer.appendChild(tastingElement);
-            });
+          const userDocSnap = await getDoc(doc(db, "users", user.email));
+          const userName = userDocSnap.exists() ? userDocSnap.data().name : "Unknown User";
+          document.querySelector(".profile span").textContent = userName;
+          await fetchTastings();
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".everything").style.display = "block";
         } catch (error) {
-            console.error("Error fetching tastings:", error);
+          console.error("Error retrieving user data:", error);
         }
-    }
-
-    function createTastingCard(tastingData) {
-        const tastingCard = document.createElement("div");
-        tastingCard.classList.add("tasting-card");
-        tastingCard.onclick = function() {
-            window.location.href = `tastingDetails.html?id=${tastingData.id}`;
-        };
-
-        const tastingCardContent = document.createElement("div");
-        tastingCardContent.classList.add("tasting-card-content");
-
-        const tastingImage = document.createElement("div");
-        tastingImage.classList.add("tasting-image");
-        const img = document.createElement("img");
-        const brewMethodImages = {
-            "Espresso": "../assets/espresso.png",
-            "French Press": "../assets/french-press.webp",
-            "Pour Over": "../assets/pour-over.webp",
-            "Aeropress": "../assets/aeropress.webp",
-            "V60": "../assets/V60.webp",
-        };
-
-        img.src = brewMethodImages[tastingData.brewMethod] || "../assets/default.png";
-        img.alt = tastingData.brewMethod;
-        img.width = 75;
-        img.height = 75;
-        tastingImage.appendChild(img);
-
-        const tastingText = document.createElement("div");
-        tastingText.classList.add("tasting-text");
-
-        const tastingCardHeader = document.createElement("div");
-        tastingCardHeader.classList.add("tasting-card-header");
-        const coffeeName = document.createElement("h3");
-        coffeeName.textContent = tastingData.coffeeName || "Unknown Coffee";
-        const brandName = document.createElement("p");
-        brandName.textContent = `by ${tastingData.brandName || "Unknown Brand"}`;
-        tastingCardHeader.appendChild(coffeeName);
-        tastingCardHeader.appendChild(brandName);
-
-        const brewMethod = document.createElement("p");
-        brewMethod.classList.add("brew-method");
-        brewMethod.textContent = `Brew Method: ${tastingData.brewMethod || "No notes provided"}`;
-
-        const ratingSys = document.createElement("div");
-        ratingSys.classList.add("ratingSys");
-        const rating = Number(tastingData.rating) || 0;
-        for (let i = 1; i <= 5; i++) {
-            const bean = document.createElement("div");
-            bean.classList.add("bean", i <= rating ? "on" : "off");
-            bean.textContent = "☕";
-            ratingSys.appendChild(bean);
-        }
-
-        // Formatting the date properly
-        let createdAtText = "Date Unknown";
-        if (tastingData.createdAt) {
-            const createdAt = tastingData.createdAt;
-            if (createdAt.toDate) {
-                // If it's a Firebase Timestamp
-                const dateObj = createdAt.toDate();
-                const day = String(dateObj.getDate()).padStart(2, "0");
-                const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-                const year = dateObj.getFullYear();
-                const hours = String(dateObj.getHours()).padStart(2, "0");
-                const minutes = String(dateObj.getMinutes()).padStart(2, "0");
-                const seconds = String(dateObj.getSeconds()).padStart(2, "0");
-
-                createdAtText = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds}`;
-            } else {
-                // If it's already a formatted string
-                createdAtText = createdAt;
-            }
-        }
-
-        const createdAtElement = document.createElement("p");
-        createdAtElement.classList.add("created-at");
-        createdAtElement.textContent = `${createdAtText}`;
-
-        tastingText.appendChild(tastingCardHeader);
-        tastingText.appendChild(brewMethod);
-        tastingText.appendChild(ratingSys);
-        tastingText.appendChild(createdAtElement); // Append the date/time info
-
-        tastingCardContent.appendChild(tastingImage);
-        tastingCardContent.appendChild(tastingText);
-        tastingCard.appendChild(tastingCardContent);
-
-        return tastingCard;
-    }
-
-    document.addEventListener("DOMContentLoaded", fetchTastings);
-
+      } else {
+        window.location.href = "login.html";
+      }
+    });
 </script>
+
 </body>
 </html>
