@@ -12,12 +12,21 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="BrewLog – Your Digital Coffee Journal">
+    <meta property="og:description" content="Track your coffee journey, log brews, and discover new flavors with BrewLog.">
+    <meta property="og:image" content="main-project/assets/previewPage.png">
+    <meta property="og:url" content="https://brewlog.coffee">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BrewLog – Your Digital Coffee Journal">
+    <meta name="twitter:description" content="Track your coffee journey, log brews, and discover new flavors with BrewLog.">
+    <meta name="twitter:image" content="main-project/assets/previewPage.png">
+
     <title>BrewLog - Your Digital Coffee Journal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!--Favicon-->
     <link rel="icon" href="main-project/assets/Brewlog.ico" type="image/x-icon">
     <style>
-        /* Apply box-sizing to help with layout consistency */
+        /* Reset and Box-sizing */
         *, *::before, *::after {
             box-sizing: border-box;
         }
@@ -25,148 +34,232 @@
         /* Base Styles */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9fbfd;
             margin: 0;
             padding: 0;
             color: #2d2d2d;
-            text-align: center;
-            overflow-x: hidden; /* prevents unwanted horizontal scroll */
+            overflow-x: hidden;
         }
+        
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
             max-width: 1200px;
             padding: 20px;
             margin: 0 auto;
         }
+        
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #6B09FF;
         }
+        
         nav {
             font-size: 1rem;
         }
+        
         nav a {
             color: #2d2d2d;
             margin: 0 15px;
             text-decoration: none;
+            transition: color 0.3s;
         }
+        
         nav a:hover {
             color: #6B09FF;
         }
-        /* Main Container */
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            margin: 40px auto;
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 80px 20px;
+            background: url('assets/coffee-bg.jpg') no-repeat center center/cover;
         }
-        h1 {
+        
+        .hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 10px;
-            color: #1a1a1a;
         }
-        h1 span {
-            display: inline-block;
-            font-weight: 800;
+        
+        .hero h1 span {
             color: #6B09FF;
-            white-space: nowrap;
         }
-        h2 {
-            font-size: 1rem;
-            color: #777;
+        
+        .hero p {
+            font-size: 1.2rem;
             margin-bottom: 30px;
-            line-height: 1.3;
         }
+        
         .cta-button {
             background-color: #6B09FF;
             color: white;
-            padding: 10px 25px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 15px;
+            border-radius: 25px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            font: inherit;
             font-weight: 600;
-            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.3s;
         }
+        
         .cta-button:hover {
             background-color: #7c2dff;
             transform: scale(1.05);
-            transition: transform 0.2s;
         }
-        footer {
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #777;
-            font-style: italic;
+ 
+
+    
+        
+        /* Why BrewLog Section */
+        .why-section {
+            padding: 60px 20px;
+            background-color: #fff;
+            text-align: center;
         }
-        /* Demo Section Styles */
+        
+        .why-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .why-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .card {
+            background: #f9fbfd;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card h3 {
+            color: #6B09FF;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 60px 20px;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+        
+        .pricing-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+        
+        .pricing-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .pricing-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px 20px;
+            width: 300px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card h3 {
+            color: #6B09FF;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .pricing-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-button {
+            background-color: #6B09FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .pricing-button:hover {
+            background-color: #7c2dff;
+            transform: scale(1.05);
+        }
+        
+        /* Demo Section */
         .demo-section {
             max-width: 1200px;
             margin: 60px auto;
             padding: 20px;
         }
+        
         .demo-section h2 {
             font-size: 2rem;
             margin-bottom: 20px;
             color: #1a1a1a;
         }
+        
         .demo-section iframe {
             width: 100%;
             min-height: 600px;
             border: 1px solid #ccc;
             border-radius: 10px;
         }
+        
+        /* Footer */
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+            background-color: #fff;
+        }
+        
         /* Responsive Styles */
-        @media (max-width: 1024px) {
-            h1 {
-                font-size: 3rem;
-            }
-            h2 {
-                font-size: 1rem;
-            }
-            .cta-button {
-                padding: 12px 25px;
-            }
-        }
         @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-            }
-            h1 {
-                font-size: 2.5rem;
-            }
-            h2 {
-                font-size: 0.8rem;
-            }
-            .cta-button {
-                padding: 12px 25px;
-            }
-        }
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            h2 {
-                font-size: 1rem;
-            }
-            .cta-button {
-                padding: 12px;
-                width: 100%;
-            }
-            nav a {
-                font-size: 0.9rem;
-                margin: 0 5px; /* reduce horizontal spacing on small screens */
-            }
-            /* Extra right padding for the header prevents the scrollbar from overlapping the Sign In button */
-            header {
-                padding-right: 30px;
+            .dispear{
+                display: none;
             }
         }
     </style>
@@ -175,24 +268,72 @@
     <header>
         <div class="logo">BrewLog</div>
         <nav>
-            <a href="/main-project/dashboard.html">Sign Up</a>
-            <a href="/main-project/dashboard.html">Sign In</a>
+            <a class="dispear" href="#why">Why BrewLog?</a>
+            <a class="dispear" href="#pricing">Pricing</a>
             <a href="blogPage.html">Blog</a>
+            <a href="main-project/dashboard.html">Sign In</a>
         </nav>
     </header>
     
-    <div class="container">
-        <h1>Track What Works,<br><span>Improve What Doesn’t.</span></h1>
-        <h2>Your Personal Coffee Journal to Track, Discover, and Perfect Every Brew.<br>(So you never have to have a bad cup again!)</h2>
-        <div class="form-container">
-            <button class="cta-button" onclick="location.href='/main-project/dashboard.html';">Join Brewlog Now!</button>
+    <!-- Hero Section with Floating Coffee Elements -->
+    <section class="hero">
+        <h1>Track What Works, <br><span>Improve What Doesn’t.</span></h1>
+        <p>Your personal coffee journal to track, discover, and perfect every brew.</p>
+        <button class="cta-button" onclick="location.href='presalePage.html';">Join BrewLog Now!</button>
+    </section>
+    
+    <!-- Why BrewLog Section -->
+    <section id="why" class="why-section">
+        <h2>Why BrewLog?</h2>
+        <div class="why-cards">
+            <div class="card">
+                <h3>Precision Tracking</h3>
+                <p>Log every detail of your brew to discover your perfect recipe.</p>
+            </div>
+            <div class="card">
+                <h3>Expert Tips</h3>
+                <p>Access curated insights and professional brewing advice.</p>
+            </div>
+            <div class="card">
+                <h3>Community Driven</h3>
+                <p>Join a passionate community sharing secrets and experiences.</p>
+            </div>
         </div>
-        <footer>Track, explore, and improve your coffee; free with BrewLog!</footer>
-    </div>
-
-    <section class="demo-section">
+    </section>
+    
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <h2>Pricing Plans</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Monthly</h3>
+                <div class="pricing-price">$2.99/mo</div>
+                <p>Affordable and flexible, cancel anytime.</p>
+                <button class="pricing-button" onclick="window.location.href='https://buy.stripe.com/3cseX82hh1JT2pa009';">Subscribe Monthly</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Yearly</h3>
+                <div class="pricing-price">$24.99/yr</div>
+                <p>Enjoy all features with a one-time yearly payment</p>
+                <button class="pricing-button" onclick="window.location.href='https://buy.stripe.com/4gw6qC1dd3S1bZKeV1';">Subscribe Yearly</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Lifetime</h3>
+                <div class="pricing-price">$40</div>
+                <p>One-time payment, no recurring fees</p>
+                <button class="pricing-button" onclick="window.location.href='https://buy.stripe.com/cN28yK9JJfAJ0h24go';">Get Lifetime Access!</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
         <h2>Live Demo</h2>
         <iframe src="https://giiiy.github.io/BrewLog/dashboard.html" frameborder="0"></iframe>
     </section>
+    
+    <footer>
+        <p>Your Personal Digital Coffee Journal!</p>
+    </footer>
 </body>
 </html>
