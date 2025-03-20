@@ -79,9 +79,9 @@
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.6rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 40px;
         }
         
         .hero h1 span {
@@ -90,15 +90,19 @@
         
         .hero p {
             font-size: 1.2rem;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+            /* make so text fits better and doesnt take up the whole screen horizontally*/
+            padding: 0 350px;
+
+
         }
         
         .cta-button {
             background-color: #6B09FF;
             color: white;
-            padding: 12px 30px;
+            padding: 18px 45px;
             border: none;
-            border-radius: 25px;
+            border-radius: 15px;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
@@ -261,6 +265,65 @@
             .dispear{
                 display: none;
             }
+
+            .hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+                padding: 0 20px;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+            }
+
+            .why-section h2 {
+                font-size: 2rem;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .pricing-section h2 {
+                font-size: 2rem;
+            }
+
+            .pricing-card {
+                width: 100%;
+            }
+
+            .pricing-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .pricing-card p {
+                font-size: 0.9rem;
+            }
+
+            .pricing-price {
+                font-size: 1.5rem;
+            }
+
+            .pricing-button {
+                padding: 10px 20px;
+            }
+
+            .demo-section h2 {
+                font-size: 1.8rem;
+            }
+
+
+            footer {
+                font-size: 0.8rem;
+            }
+
+
+
+            
         }
     </style>
 </head>
@@ -276,9 +339,9 @@
     </header>
     
     <!-- Hero Section with Floating Coffee Elements -->
-    <section class="hero">
-        <h1>Track What Works, <br><span>Improve What Doesn’t.</span></h1>
-        <p>Your personal coffee journal to track, discover, and perfect every brew.</p>
+    <section class="hero" style="margin-top: 24px;">
+        <h1>Brew the perfect cup of coffee<br><span>every time.</span></h1>
+        <p>Whether you're a beginner or a coffee enthusiast, BrewLog is your ultimate companion for tracking, improving, and mastering your brews;<br>Get BrewLog today!</p>
         <button class="cta-button" onclick="location.href='presalePage.html';">Join BrewLog Now!</button>
     </section>
     
@@ -332,6 +395,15 @@
         <iframe src="https://giiiy.github.io/BrewLog/dashboard.html" frameborder="0"></iframe>
     </section>
     
+    <!-- Testimonial Section -->
+    <section id="testimonial" class="testimonial-section" style="padding: 60px 20px; background-color: #f9f9f9; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: #1a1a1a;">What Coffee Enthusiasts Say</h2>
+        <div class="testimonial-card" style="max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <p style="font-size: 1.2rem; color: #555; font-style: italic;">“BrewLog is a solid app for keeping track of my daily brews without feeling like a chore. Jayden did a great job making it interactive and easy to use, which keeps me coming back. If you’re serious about your coffee, give it a shot—I’m eager to see what he brews up next! ! ☕”</p>
+            <h3 style="margin-top: 15px; font-size: 1.3rem; color: #6B09FF;">— MJ</h3>
+        </div>
+    </section>
+
     <footer>
         <p>Your Personal Digital Coffee Journal!</p>
     </footer>
