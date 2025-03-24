@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1TKGEWT9MJ');
+    </script>
+    
+
+    <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+    <script>
+        // Version: 2.0
+        window.Brevo = window.Brevo || [];
+        Brevo.push([
+            "init",
+            {
+            client_key: "e63ywklo5xuox8bzxyfkxjjs"
+            }
+        ]);
+    </script>
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Coffee Ratio Calculator - BrewLog">
+    <meta property="og:description" content="Calculate the perfect coffee to water ratio for your brew.">
+    <meta property="og:image" content="https://brewlog.coffee/main-project/assets/coffee-6126839_1280.jpg">
+    <meta property="og:url" content="https://brewlog.coffee/main-project/Coffee-Resources/ratio-calculator.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Coffee Ration Calculator">
+    <meta name="twitter:description" content="Calculate the perfect coffee to water ratio for your brew.">
+    <meta name="twitter:image" content="https://brewlog.coffee/main-project/assets/coffee-6126839_1280.jpg">
+
+    <title>Coffee Ratio Calculator - BrewLog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="main-project/assets/Brewlog.ico" type="image/x-icon">
+    <style>
+        /* Reset and Box-sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #2d2d2d;
+            overflow-x: hidden;
+            /* allow footer to stick to the bottom */
+            position: relative;
+            min-height: 100vh;
+            
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6B09FF;
+            cursor: pointer;
+        }
+        
+        nav {
+            font-size: 1rem;
+        }
+        
+        nav a {
+            color: #2d2d2d;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #6B09FF;
+        }
+        
+
+        /* Footer */
+        footer {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            position: absolute;
+            bottom: -100px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            
+        }
+
+        .footer-content a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #FFD700;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: #FFD700;
+        }
+
+        /* Calculator Styles */
+
+        .calculator-position { /* center horizontally, just a little under the header */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            
+        }
+
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .output {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .ratio-display {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #6B09FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            /* center the button */
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #5807D6;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .slider {
+            width: 100%;
+        }
+
+        .title{
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 20px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {     
+            footer {
+                font-size: 0.8rem;
+            }
+
+            .title{
+                font-size: 2rem;
+            }
+        }
+
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .dispear{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='../../index.html'">BrewLog</div>
+        <nav>
+            <a class="dispear" href="coffeeResourceHub.html">Resources</a>
+            <a class="dispear" href="../../presalePage.html">Pricing</a>
+            <a href="../../blogPage.html">Blog</a>
+            <a href="main-project/dashboard.html">Sign In</a>
+        </nav>
+    </header>
+
+    <h1 class="title">Coffee Ratio Calculator ☕</h1>
+
+    <div class="calculator-position">
+        <div class="calculator">
+            <label for="brew-method">Select Brew Method:</label>
+            <select id="brew-method">
+                <option value="espresso">Espresso</option>
+                <option value="french-press">French Press</option>
+                <option value="pour-over">Pour-over</option>
+                <option value="v60">V60</option>
+                <option value="aeropress">Aeropress</option>
+            </select>
+            
+            <p>Adjust Strength (Weak ➝ Strong)</p>
+            <input type="range" min="1" max="5" value="3" class="slider" id="strength-slider">
+            
+            <p class="ratio-display">Recommended Ratio: 1:2</p>
+            <label for="coffeeAmount">Grams of Coffee:</label>
+            <input type="number" id="coffeeAmount" value="20">
+            
+            <label for="ratio">Adjust Ratio:</label>
+            <input type="number" id="ratio" value="2">
+            
+            <button onclick="calculateWater()">Calculate</button>
+            
+            <div class="output" id="result"></div>
+
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 BrewLog. All Rights Reserved.</p>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#features">Features</a>
+                <a href="blogPage.html">Blog</a>
+                <a href="#pricing">Pricing</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><img src="../assets/twitter.png" alt="Twitter" style="width: 25px; height: 25px;"></a>
+                <a href="#"><img src="../assets/instagram.webp" alt="Instagram" style="width: 25px; height: 25px;"></a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const brewMethod = document.getElementById('brew-method');
+        const strengthSlider = document.getElementById('strength-slider');
+        const ratioDisplay = document.querySelector('.ratio-display');
+
+        const ratioRecommendations = {
+            "espresso": ["1:2.5", "1:2.25", "1:2", "1:1.75", "1:5"],
+            "french-press": ["1:18", "1:17", "1:16", "1:15", "1:14"],
+            "pour-over": ["1:18", "1:17", "1:16", "1:15", "1:14"],
+            "v60": ["1:17", "1:16.5", "1:16", "1:15.5", "1:15"],
+            "aeropress": ["1:16", "1:15", "1:14", "1:13", "1:12"]
+        };
+
+        function updateRatio() {
+            const method = brewMethod.value;
+            const strength = strengthSlider.value - 1;
+            ratioDisplay.textContent = `Recommended Ratio: ${ratioRecommendations[method][strength]}`;
+
+            /* update the ratio input value */
+            document.getElementById('ratio').value = ratioRecommendations[method][strength].split(':')[1];
+        }
+
+        brewMethod.addEventListener('change', updateRatio);
+        strengthSlider.addEventListener('input', updateRatio);
+
+        function calculateWater() {
+            let coffee = parseFloat(document.getElementById('coffeeAmount').value);
+            let ratio = parseFloat(document.getElementById('ratio').value);
+            let water = coffee * ratio;
+            let waterOz = (water / 29.5735).toFixed(2);
+            
+            document.getElementById('result').innerHTML = `Use ${water.toFixed(1)}ml (${waterOz}oz) of water.`;
+        }
+
+        document.getElementById('brewMethod').addEventListener('change', function() {
+            document.getElementById('ratio').value = this.value;
+        });
+
+    </script>
+</body>
+</html>
