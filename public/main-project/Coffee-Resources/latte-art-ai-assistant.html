@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latte Art AI Assistant - BrewLog</title>
+
+    <!-- Fonts and Favicon -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <!-- Styles -->
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            /* allow footer to stick to the bottom */
+            position: relative;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6B09FF;
+            cursor: pointer;
+        }
+        
+        nav {
+            font-size: 1rem;
+        }
+        
+        nav a {
+            color: #2d2d2d;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #6B09FF;
+        }
+        
+
+        /* Footer */
+        footer {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            position: absolute;
+            bottom: -100px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            
+        }
+
+        .footer-content a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #FFD700;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .footer-socials a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: #FFD700;
+        }
+
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {     
+            footer {
+                font-size: 0.8rem;
+            }
+        }
+
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .dispear{
+                display: none;
+            }
+        }
+
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        main h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6B09FF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5407cc;
+        }
+
+        #preview {
+            display: none;
+            max-width: 300px;
+            max-height: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        
+
+        #result {
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .feedback-section {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .feedback-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .feedback-section p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .nextToEachOther{
+            /* in the middle next to each other */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+
+        }
+
+        /* result section looks good, list and titles   */
+        #result ul{
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #result li{
+            margin-bottom: 10px;
+        }
+
+        #result li strong{
+            color: #6B09FF;
+        }
+
+        .predicted{
+            color: #6B09FF;
+            margin-bottom: 10px;
+        }
+
+        .rating{
+            color: #6B09FF;
+        }
+
+        .photo-instructions-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 600px;
+            width: 90%; 
+        }
+
+        .photo-instructions-popup h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .photo-instructions-popup ul {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .photo-instructions-popup li {
+            margin-bottom: 10px;
+        }
+
+        .photo-instructions-popup .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #6B09FF;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* input file */
+        input[type="file"]{
+            /* good styling */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+
+
+        @media (max-width: 600px) {
+            main {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='../../index.html'">BrewLog</div>
+        <nav>
+            <a class="dispear" href="coffeeResourceHub.html">Resources</a>
+            <a class="dispear" href="../../presalePage.html">Pricing</a>
+            <a href="../../blogPage.html">Blog</a>
+            <a href="main-project/dashboard.html">Sign In</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Upload your latte art</h2>
+        <p>Get instant classification, rating, and expert feedback.</p>
+
+        <!-- Photo Instructions -->
+         <button onclick="popUp()">Photo Instructions</button>
+        <section class="photo-instructions-popup">
+            <h3>How to Take the Perfect Latte Art Photo</h3>
+            <!--X button to close popup-->
+            <button class="close-popup" onclick="closePopup()">X</button>
+            <ul>
+                <li>Ensure the photo has a <strong>plain background</strong> (preferably white or light-colored) to help the AI detect the latte art clearly.</li>
+                <li>Position the <strong>cup roughly in the center</strong> of the photo. The cup should be well-lit with no shadows covering the art.</li>
+                <li>The <strong>latte art should be clearly visible</strong> on the surface of the coffee, with the art itself not being obscured by the edges of the cup.</li>
+                <li>Avoid using <strong>filters or heavy post-editing</strong> that could distort the original look of the latte art.</li>
+                <li>Make sure the cup is facing <strong>upright</strong> so the art is not tilted or rotated.</li>
+                <li>Ensure the photo is <strong>sharp and in focus</strong> so the details of the art can be evaluated accurately.</li>
+            </ul>
+        </section>
+
+        <input type="file" id="fileInput" accept="image/*"class="d-none" onchange="processImage()">
+
+        <div class="nextToEachOther">
+            <img id="preview" src="#" alt="Image preview">
+            <div id="result"></div>
+        </div>
+
+        <div class="feedback-section">
+            <h3>AI Feedback</h3>
+            <p id="feedback">Upload your latte art to receive detailed feedback here.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 BrewLog. All Rights Reserved.</p>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#features">Features</a>
+                <a href="blogPage.html">Blog</a>
+                <a href="#pricing">Pricing</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><img src="../assets/twitter.png" alt="Twitter" style="width: 25px; height: 25px;"></a>
+                <a href="#"><img src="../assets/instagram.webp" alt="Instagram" style="width: 25px; height: 25px;"></a>
+            </div>
+        </div>
+    </footer>
+    <script>
+
+        function popUp(){
+            const popup = document.querySelector('.photo-instructions-popup');
+            popup.style.display = 'block';
+
+        }
+
+        function closePopup(){
+            const popup = document.querySelector('.photo-instructions-popup');
+            popup.style.display = 'none';
+
+        }
+        // Function to process the image once it's uploaded
+        function processImage() {
+            const fileInput = document.getElementById("fileInput");
+            const preview = document.getElementById("preview");
+            const result = document.getElementById("result");
+            const feedback = document.getElementById("feedback");
+
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select an image.");
+                return;
+            }
+
+            // Show the image preview
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+                analyzeImage(preview); // After loading the image, analyze it
+            };
+            reader.readAsDataURL(file);
+        }
+
+
+        // Analyze the image and calculate ratings
+        function analyzeImage(image) {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            // Wait for the image to load
+            image.onload = function () {
+                // Set canvas size to image size
+                canvas.width = image.width;
+                canvas.height = image.height;
+
+                // Draw the image onto the canvas
+                ctx.drawImage(image, 0, 0);
+
+                // Get pixel data from the canvas
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imageData.data;
+
+                // Calculate ratings
+                const contrast = getContrast(pixels);
+                const symmetry = getSymmetry(pixels, canvas.width, canvas.height);
+                const detail = getDetail(pixels);
+
+                // Display the ratings
+                const ratings = {
+                    contrast: contrast,
+                    symmetry: symmetry,
+                    detail: detail,
+                    total: Math.round((contrast + symmetry + detail) / 3),
+                };
+
+                // Display the ratings
+                result.innerHTML = `
+                    <h4>Ratings:</h4>
+                    <ul class="result-list">
+                        <li><strong>Contrast:</strong> ${ratings.contrast}/10</li>
+                        <li><strong>Symmetry:</strong> ${ratings.symmetry}/10</li>
+                        <li><strong>Detail:</strong> ${ratings.detail}/10</li>
+                        <li><strong>Total Score:</strong> ${ratings.total}/10</li>
+                    </ul>
+                `;
+
+                // Provide feedback based on ratings
+                feedback.innerHTML = `
+                    <p>${generateFeedback(ratings)}</p>
+                `;
+            };
+        }
+
+        // Function to calculate contrast rating
+        function getContrast(pixels) {
+            let sum = 0;
+            let count = 0;
+            
+            // Loop through the pixels to calculate the contrast
+            for (let i = 0; i < pixels.length; i += 4) {
+                const r = pixels[i];
+                const g = pixels[i + 1];
+                const b = pixels[i + 2];
+
+                // Convert to grayscale (luminosity method)
+                const gray = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                sum += gray;
+                count++;
+            }
+
+            // Calculate average grayscale value
+            const avgGray = sum / count;
+
+            // Calculate contrast as the difference between max and min grayscale values
+            let maxDiff = 0;
+            for (let i = 0; i < pixels.length; i += 4) {
+                const r = pixels[i];
+                const g = pixels[i + 1];
+                const b = pixels[i + 2];
+                const gray = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+                const diff = Math.abs(gray - avgGray);
+                maxDiff = Math.max(maxDiff, diff);
+            }
+
+            // Normalize contrast to a 1-10 scale
+            return Math.min(Math.round((maxDiff / 128) * 10), 10); // Contrast scaling factor
+        }
+
+        // Function to calculate symmetry rating
+        function getSymmetry(pixels, width, height) {
+            let leftSide = 0;
+            let rightSide = 0;
+            
+            // Divide the image into two halves and calculate pixel similarity
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width / 2; x++) {
+                    const leftIndex = (y * width + x) * 4;
+                    const rightIndex = (y * width + (width - x - 1)) * 4;
+
+                    // Get pixel values for the left and right halves
+                    const leftR = pixels[leftIndex];
+                    const leftG = pixels[leftIndex + 1];
+                    const leftB = pixels[leftIndex + 2];
+
+                    const rightR = pixels[rightIndex];
+                    const rightG = pixels[rightIndex + 1];
+                    const rightB = pixels[rightIndex + 2];
+
+                    // Compare pixel color difference
+                    const diff = Math.abs(leftR - rightR) + Math.abs(leftG - rightG) + Math.abs(leftB - rightB);
+                    if (diff < 100) {
+                        leftSide++;
+                        rightSide++;
+                    }
+                }
+            }
+
+            // Symmetry is calculated as the percentage of matching pixels between the left and right halves
+            const symmetry = Math.min(Math.round((leftSide / (width * height / 2)) * 10), 10);
+            return symmetry;
+        }
+
+        // Function to calculate detail rating
+        function getDetail(pixels) {
+            // detail for latte art is calulated via amount of lines in the image
+            let lines = 0;
+            for (let i = 0; i < pixels.length; i += 4) {
+                const r = pixels[i];
+                const g = pixels[i + 1];
+                const b = pixels[i + 2];
+
+                // Check for pixel color to detect lines
+                if (r < 100 && g < 100 && b < 100) {
+                    lines++;
+                }
+            }
+
+            // Normalize detail to a 1-10 scale
+            return Math.min(Math.round((lines / 1000) * 10), 10); // Detail scaling factor
+            
+        }
+
+
+        // Function to generate feedback based on ratings
+        function generateFeedback(ratings) {
+            let feedbackText = "";
+
+            // Feedback for Contrast
+            if (ratings.contrast <= 4) {
+                feedbackText += "Your contrast looks a bit low. This could be due to your milk not being frothy enough, or the espresso shot might be too light. To improve, focus on getting a richer, deeper espresso shot and make sure your milk is velvety and smooth, which will help create that striking contrast you're aiming for.\n";
+            } else if (ratings.contrast <= 7) {
+                feedbackText += "Your contrast is decent, but there’s room to make it pop even more. Ensure your espresso is well-brewed with a nice, dark crema. Try steaming the milk to the right consistency for a smoother, more defined contrast.\n";
+            } else {
+                feedbackText += "Great job! Your contrast is on point. The difference between your espresso and milk is sharp and clean, making your latte art stand out. Keep this up!\n";
+            }
+
+            // Feedback for Symmetry
+            if (ratings.symmetry <= 4) {
+                feedbackText += "Your design seems a bit off-center or uneven. To improve symmetry, focus on your pouring technique. Make sure to pour steadily and from the right distance, and aim for the center of the cup when creating your pattern.\n";
+            } else if (ratings.symmetry <= 7) {
+                feedbackText += "You're close, but the symmetry could be better. Try to control your pour speed and angle more consistently to make sure the design stays centered. A bit more attention to the pour will give you that balanced, perfect look.\n";
+            } else {
+                feedbackText += "Fantastic symmetry! Your design is perfectly balanced. You've mastered the pour technique, and the design is centered and even. Keep it up!\n";
+            }
+
+            // Feedback for Detail
+            if (ratings.detail <= 4) {
+                feedbackText += "The details in your latte art seem a bit rough or undefined. To improve, focus on the smaller, intricate details of your design. Try slowing down your pour and paying attention to the texture of your milk. You can also experiment with different pouring techniques to refine the overall look.\n";
+            } else if (ratings.detail <= 7) {
+                feedbackText += "Nice detail, but there's room for improvement. Work on refining the finer elements of your design by adjusting your pouring technique and the consistency of your milk. Adding some subtle details can make your latte art look even more impressive.\n";
+            } else {
+                feedbackText += "Impressive detail! Your design shows intricate patterns, and the milk texture is spot on. The finer elements are well-executed, adding to the overall beauty of your latte art. Great work!\n";
+            }
+
+            return feedbackText;
+        }
+
+    </script>
+</body>
+</html>
