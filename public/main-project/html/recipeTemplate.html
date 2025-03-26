@@ -1,0 +1,236 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-1TKGEWT9MJ');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Title - BrewLog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/recipeTemplate.css" />
+  <link rel="stylesheet" href="../css/loadingStyles.css" />
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/protect.js"></script>
+  <link rel="icon" href="../assets/Brewlog.ico" type="image/x-icon">
+
+
+</head>
+<body>
+  <div class="loading">
+    <h1>Loading BrewLog...</h1>
+    <img src="../assets/loading.webp" alt="Loading Spinner" />
+    <p>This may take a few seconds.</p>
+  </div>
+
+  <div class="everything">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1><a href="../dashboard.html">BrewLog</a></h1>
+        <div class="sidebar-hamburger" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <button onclick="location.href='addTasting.html';"><span class="plus-icon">+</span> Add New Tasting</button>
+      <nav>
+        <a href="../dashboard.html">Home</a>
+        <a href="myTastings.html">My Tastings</a>
+        <a href="feedBeta.html">Feed (Beta)</a>
+        <a href="coffeeMap.html">Coffee Map</a>
+        <div class="lineBreak"></div>
+        <a href="upcomingFeatures.html">Upcoming Features</a>
+        <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+        <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+        <a href="#" onclick="openContact(); return false;">Contact Us</a>
+      </nav>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="top-nav">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        <div class="profile" onclick="window.location.href='profile.html';">
+          <div>
+            <span>John Doe</span>
+            <p>Coffee Master</p>
+          </div>
+          <div class="profile-image"></div>
+        </div>
+      </div>
+      
+      <div class="back-container">
+        <button onclick="window.history.back();">&#8592; Back</button>
+      </div>
+      
+      <!-- Add Tasting Page Content -->
+      <div class="add-tasting-container" id="addTastingContainer">
+              
+        <div class="recipe-container">
+            <h2 class="recipe-title">Test Recipe</h2>
+            <p class="recipe-description">This is a test recipe from the test category in 2025. This recipe produces this coffee etc</p>
+        
+            <div class="recipe-details">
+                <div class="detail-card">
+                    <img src="../assets/V60.webp" alt="V60">
+                    <p>V60</p>
+                </div>
+                <div class="detail-card">
+                    <img src="../assets/coffee-bean.png" alt="Coffee Beans">
+                    <p>20g</p>
+                </div>
+                <div class="detail-card">
+                    <img src="../assets/kettle.webp" alt="Kettle">
+                    <p>125 ml<br>95°C</p>
+                </div>
+            </div>
+        
+            <p class="grind-text">Fine Grind</p>
+        
+            <div class="steps-section">
+                <h3>Steps</h3>
+                <div class="step"><span class="number">1 |</span> This is a test step, you do this and that etc</div>
+                <div class="step"><span class="number">2 |</span> This is a test step, you do this and that etc</div>
+                <div class="step"><span class="number">3 |</span> This is a test step, you do this and that etc</div>
+            </div>
+        
+            <div class="note-section">
+                <p>✎ Add a Note</p>
+            </div>
+        </div>
+      </div>
+
+    
+
+
+
+    <!-- Fixed Hamburger for Mobile -->
+    <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <!-- Feedback Popup and Overlay -->
+    <div class="feedback-overlay" id="feedbackOverlay"></div>
+    <div class="feedback-popup" id="feedbackPopup">
+      <div class="popup-header">
+        <h2>Feedback</h2>
+        <button class="close-btn" onclick="closeFeedback()">×</button>
+      </div>
+      <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="feedbackName">Name</label>
+        <input type="text" id="feedbackName" name="feedbackName" required>
+        
+        <label for="feedbackEmail">Email</label>
+        <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+        
+        <label for="feedbackType">Feedback Type</label>
+        <select id="feedbackType" name="feedbackType">
+          <option value="bug">Bug Report</option>
+          <option value="general">General Feedback</option>
+          <option value="feature">Feature Request</option>
+        </select>
+        
+        <label for="feedbackMessage">Feedback</label>
+        <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+        
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <!-- Coming Soon Popup and Overlay -->
+    <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+    <div class="popup" id="comingSoonPopup" style="display:none;">
+      <div class="popup-header">
+        <h2>Coming Soon</h2>
+        <button class="close-btn" onclick="closeComingSoon()">×</button>
+      </div>
+      <div class="popup-content">
+        <p>Feature coming soon!</p>
+      </div>
+      <div class="button-container">
+        <button onclick="closeComingSoon()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Popup and Overlay -->
+  <div class="feedback-overlay" id="contactOverlay"></div>
+  <div class="feedback-popup" id="contactPopup">
+    <div class="popup-header">
+      <h2>Contact Us</h2>
+      <button class="close-btn" onclick="closeContact()">×</button>
+    </div>
+    <form id="contactForm" action="https://submit-form.com/FVNiq1HKl">
+      <label for="contactName">Name</label>
+      <input type="text" id="contactName" name="contactName" required>
+      <label for="contactEmail">Email</label>
+      <input type="email" id="contactEmail" name="contactEmail" required>
+      <label for="contactMessage">Message</label>
+      <textarea id="contactMessagee" name="contactMessage" rows="4" required></textarea>
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
+  <script src="../js/contactPopup.js"></script>
+  <script src="../js/tastingDetails.js"></script>
+  <script type="module">
+    import { db, auth } from "../js/firebase.js";
+    import { collection, query, where, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    //fetch name
+
+    async function fetchName(userEmail) {
+      const userDoc = doc(db, "users", userEmail);
+      const userSnap = await getDoc(userDoc);
+
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
+        console.log("User data:", userData);
+        // change all "John Doe"s to the user's name
+        document.querySelectorAll("span").forEach((span) => {
+          if (span.textContent === "John Doe") {
+            span.textContent = userData.name;
+          }
+        });
+
+      } else {
+        console.log("User data not found.");
+      }
+    }
+
+
+    auth.onAuthStateChanged(async (user) => {
+      console.log("Auth state changed:", user);
+
+      if (user) {
+          // User is logged in, access their email
+          const userEmail = user.email;
+          console.log("User email:", userEmail);
+
+          // Fetch tastings once the auth state is changed
+
+          await fetchName(userEmail);;
+
+          // class everything display block
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".everything").style.display = "block";
+      } else {
+          // User is not logged in, redirect to login page
+          console.log("User not logged in, redirecting to login.");
+          window.location.href = "html/login.html";
+      }
+  });
+    
+    
+  </script>
+</body>
+</html>
