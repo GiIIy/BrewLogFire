@@ -366,6 +366,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
+    
   }
   .full-row {
     display: flex;
@@ -422,6 +423,14 @@
     .form-section {
       flex: 1;
     }
+
+    /* forms input is going outside container on mobile */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+    }
+    
   }
   /* Buttons */
   .add-tasting-buttons {
