@@ -243,6 +243,7 @@
       align-items: center;
       justify-content: center;
     }
+    
     .sidebar button:hover {
       background-color: #00cc5a;
     }

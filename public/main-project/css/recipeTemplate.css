@@ -659,6 +659,7 @@
         width: auto;
         text-align: center;
         font-weight: bold;
+
     }
     
       .detail-card img {
@@ -666,9 +667,6 @@
         height: 130px;
     }
 
-    .detail-card p {
-        margin-top: 10px;
-    }
 
     
       .grind-text {
@@ -699,13 +697,20 @@
     }
     
       .note-section {
-        background-color: #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        max-width: 400px;
-        margin: 20px auto;
-        color: #888;
+        text-align: left;
+        max-width: 500px;
+        margin: auto;
+        margin-top: 50px;
     }
+
+    .note-section input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    
     
 
   

@@ -1,0 +1,263 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1TKGEWT9MJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-1TKGEWT9MJ');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Tastings - BrewLog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/addRecipe.css"/>
+  <link rel="stylesheet" href="../css/loadingStyles.css" />
+  <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/protect.js"></script>
+  <link rel="icon" href="../assets/Brewlog.ico" type="image/x-icon">
+
+</head>
+<body>
+
+  <div class="loading">
+    <h1>Loading BrewLog...</h1>
+    <img src="../assets/loading.webp" alt="Loading Spinner" />
+    <p>This may take a few seconds.</p>
+  </div>
+
+
+  <div class="everything">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1><a href="../dashboard.html">BrewLog</a></h1>
+        <div class="sidebar-hamburger" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <button><span class="plus-icon">+</span> Add New Tasting</button>
+      <nav>
+        <a href="../dashboard.html">Home</a>
+        <a href="myTastings.html">My Tastings</a>
+        <a href="feedBeta.html">Feed (Beta)</a>
+        <a href="coffeeMap.html">Coffee Map</a>
+        <div class="lineBreak"></div>
+        <a href="upcomingFeatures.html">Upcoming Features</a>
+        <a href="#" onclick="openFeedback(); return false;">Feedback</a>
+        <a href="#" onclick="showComingSoon(); return false;">Help Center</a>
+        <a href="#" onclick="openContact(); return false;">Contact Us</a>
+      </nav>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="top-nav">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        <div class="profile" onclick="window.location.href='profile.html';">
+          <div>
+            <span>John Doe</span>
+            <p>Coffee Master</p>
+          </div>
+          <div class="profile-image"></div>
+        </div>
+      </div>
+      
+      <div class="back-container">
+        <button onclick="window.history.back();">&#8592; Back</button>
+      </div>
+      
+      <!-- Add Tasting Page Content -->
+      <div class="add-tasting-container" id="addTastingContainer">
+        <!-- Block Header: Title & Mode Toggle -->
+        <div class="block-header">
+          <div class="block-title">
+            <h2>Create a New Recipe</h2>
+          </div>
+          
+        </div>
+
+        <!-- Tab Content: Coffee Information -->
+        <div class="tab-content active" id="coffeeInfoTab">
+          <!-- Simple Mode Fields -->
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="coffee-name">Recipe Title</label>
+              <input type="text" id="coffee-name" placeholder="Enter coffee name">
+            </div>
+            <div class="form-group">
+              <label for="brand-name">Description</label>
+              <input type="text" id="brand-name" placeholder="Enter Description">
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="coffeeWeight">Coffee Amount (g):</label>
+              <input type="number" id="coffeeWeight" placeholder="Enter Coffee Amount">
+            </div>
+            <div class="form-group">
+              <label for="brewMethod">Brew Method</label>
+              <select id="brewMethod">
+                <option value="V60">V60</option>
+                <option value="French Press">French Press</option>
+                <option value="Aeropress">Aeropress</option>
+                <option value="Espresso">Espresso</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+                <label for="waterAmount">Water Amount (ml):</label>
+                <input type="number" id="waterAmount" placeholder="Enter Water Amount">
+            </div>
+            <div class="form-group">
+                <label for="waterAmount">Water Temperature:</label>
+                <input type="number" id="waterTemp" placeholder="Enter Water Temperature">
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+                <label for="Grind">Grind Size</label>
+                <select id="grind">
+                  <option value="Fine">Fine</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Coarse">Coarse</option>
+                </select>
+            </div>
+           </div>
+           <div class="form-grid">
+                <div class="steps">
+                    <label>Steps</label>
+                    <textarea placeholder="Step 1"></textarea>
+                    <textarea placeholder="Step 2"></textarea>
+                    <textarea placeholder="Step 3"></textarea>
+                    <button class="add-step" onclick="addStep()">+ Add Step</button>
+                </div>
+            </div>
+           </div>
+
+        
+          </div>
+        </div>
+        <!-- Save/Discard Buttons -->
+        <div class="add-tasting-buttons">
+            <button type="submit" class="save" id="saveButton">Save</button>
+            <button type="button" class="discard" onclick="window.history.back();">Discard</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fixed Hamburger for Mobile -->
+    <div class="fixed-hamburger" id="fixedHamburger" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <!-- Feedback Popup and Overlay -->
+    <div class="feedback-overlay" id="feedbackOverlay"></div>
+    <div class="feedback-popup" id="feedbackPopup">
+      <div class="popup-header">
+        <h2>Feedback</h2>
+        <button class="close-btn" onclick="closeFeedback()">×</button>
+      </div>
+      <form id="feedbackForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="feedbackName">Name</label>
+        <input type="text" id="feedbackName" name="feedbackName" required>
+        
+        <label for="feedbackEmail">Email</label>
+        <input type="email" id="feedbackEmail" name="feedbackEmail" required>
+        
+        <label for="feedbackType">Feedback Type</label>
+        <select id="feedbackType" name="feedbackType">
+          <option value="bug">Bug Report</option>
+          <option value="general">General Feedback</option>
+          <option value="feature">Feature Request</option>
+        </select>
+        
+        <label for="feedbackMessage">Feedback</label>
+        <textarea id="feedbackMessage" name="feedbackMessage" rows="4" required></textarea>
+        
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <!-- Coming Soon Popup and Overlay -->
+    <div class="overlay" id="comingSoonOverlay" style="display:none;"></div>
+    <div class="popup" id="comingSoonPopup" style="display:none;">
+      <div class="popup-header">
+        <h2>Coming Soon</h2>
+        <button class="close-btn" onclick="closeComingSoon()">×</button>
+      </div>
+      <div class="popup-content">
+        <p>Feature coming soon!</p>
+      </div>
+      <div class="button-container">
+        <button onclick="closeComingSoon()">OK</button>
+      </div>
+    </div>
+
+    <!-- Contact Popup and Overlay -->
+    <div class="feedback-overlay" id="contactOverlay"></div>
+    <div class="feedback-popup" id="contactPopup">
+      <div class="popup-header">
+        <h2>Contact Us</h2>
+        <button class="close-btn" onclick="closeContact()">×</button>
+      </div>
+      <form id="contactForm" action="https://submit-form.com/FVNiq1HKl">
+        <label for="contactName">Name</label>
+        <input type="text" id="contactName" name="contactName" required>
+        <label for="contactEmail">Email</label>
+        <input type="email" id="contactEmail" name="contactEmail" required>
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessagee" name="contactMessage" rows="4" required></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="../js/contactPopup.js"></script>
+  <script src="../js/addTasting.js"></script>
+  <script type="module">
+    import { db, auth } from "../js/firebase.js";
+    import { doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+    auth.onAuthStateChanged(async (user) => {
+      console.log("Auth state changed:", user);
+
+      if (user) {
+          // User is logged in, access their email
+          const userEmail = user.email;
+          
+          // Get the user's name from database
+          const userDoc = await getDoc(doc(db, "users", userEmail));
+          const userName = userDoc.data().name;
+
+          // Update the profile name 
+          document.querySelector(".profile span").textContent = userName; 
+
+      
+      }
+      
+
+      // loading screen
+      document.querySelector('.loading').style.display = "none";
+      document.querySelector('.everything').style.display = "block";
+    
+    });
+
+
+
+    
+
+  </script>
+  
+</body>
+</html>

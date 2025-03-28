@@ -79,15 +79,15 @@
             <p class="recipe-description">This is a test recipe from the test category in 2025. This recipe produces this coffee etc</p>
         
             <div class="recipe-details">
-                <div class="detail-card">
-                    <img src="../assets/V60.webp" alt="V60">
-                    <p>V60</p>
+                <div class="detail-card" id="brewMethod">
+                    <img src="../assets/espresso.png" alt="V60">
+                    <p>Espresso</p>
                 </div>
-                <div class="detail-card">
-                    <img src="../assets/coffee-bean.png" alt="Coffee Beans">
+                <div class="detail-card" id="coffeeWeight">
+                    <img src="../assets/coffeebag.png!bw700" alt="Coffee Beans">
                     <p>20g</p>
                 </div>
-                <div class="detail-card">
+                <div class="detail-card" id="waterInfo">
                     <img src="../assets/kettle.webp" alt="Kettle">
                     <p>125 ml<br>95°C</p>
                 </div>
@@ -100,10 +100,11 @@
                 <div class="step"><span class="number">1 |</span> This is a test step, you do this and that etc</div>
                 <div class="step"><span class="number">2 |</span> This is a test step, you do this and that etc</div>
                 <div class="step"><span class="number">3 |</span> This is a test step, you do this and that etc</div>
+                
             </div>
         
-            <div class="note-section">
-                <p>✎ Add a Note</p>
+            <div class="note-section" style="display: none;">
+                <input type="text" placeholder="✎ Add a Note..." />
             </div>
         </div>
       </div>
@@ -207,6 +208,47 @@
       }
     }
 
+    async function fetchRecipe() {
+      const recipeId = window.location.search.split("=")[1]; // url example: brewlog.coffee/recipeTemplate.html?id=littlejjgill@gmail.com-1
+      console.log("Recipe ID:", recipeId);
+
+      const recipeDoc = doc(db, "recipes", recipeId);
+      const recipeSnap = await getDoc(recipeDoc);
+
+      if (recipeSnap.exists()) {
+        const recipeData = recipeSnap.data();
+        console.log("Recipe data:", recipeData);
+
+        // title, description, brewMethod, coffeeWeight, waterInfo, grind, steps
+        document.querySelector(".recipe-title").textContent = recipeData.title;
+        document.querySelector(".recipe-description").textContent = recipeData.description;
+        document.querySelector("#brewMethod p").textContent = recipeData.brewMethod;
+        document.querySelector("#coffeeWeight p").textContent = `${recipeData.coffeeWeight}g`;
+        document.querySelector("#waterInfo p").textContent = `${recipeData.waterAmount} ml\n${recipeData.waterTemp}°C`; 
+        document.querySelector(".grind-text").textContent = `${recipeData.grind} Grind`;
+
+        // change page title to recipe title
+        document.title = `${recipeData.title} - BrewLog`;
+
+  
+
+        const stepsSection = document.querySelector(".steps-section");
+        stepsSection.innerHTML = "<h3>Steps</h3>";
+
+        // steps saved as an array
+        recipeData.steps.forEach((step, index) => {
+          const stepDiv = document.createElement("div");
+          stepDiv.classList.add("step");
+          stepDiv.innerHTML = `<span class="number">${index + 1} |</span> ${step}`;
+          stepsSection.appendChild(stepDiv);
+        });
+
+        
+      } else {
+        console.log("Recipe data not found.");
+      }
+    };
+
 
     auth.onAuthStateChanged(async (user) => {
       console.log("Auth state changed:", user);
@@ -218,7 +260,9 @@
 
           // Fetch tastings once the auth state is changed
 
-          await fetchName(userEmail);;
+          await fetchName(userEmail);
+          await fetchRecipe();
+
 
           // class everything display block
           document.querySelector(".loading").style.display = "none";
