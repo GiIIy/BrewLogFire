@@ -33,7 +33,7 @@
       const addCoffeeMapBtn = document.getElementById('coffeeMap');
       if (addCoffeeMapBtn) {
         addCoffeeMapBtn.addEventListener('click', function () {
-          window.location.href = 'html/coffeeMap.html';
+          window.location.href = 'html/myRecipes.html';
         });
       }
   

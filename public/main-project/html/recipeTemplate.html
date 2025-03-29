@@ -40,12 +40,12 @@
           <div class="bar"></div>
         </div>
       </div>
-      <button onclick="location.href='addTasting.html';"><span class="plus-icon">+</span> Add New Tasting</button>
+      <button onclick="location.href='addTasting.html';"><span class="plus-icon">+</span> Add New</button>
       <nav>
         <a href="../dashboard.html">Home</a>
         <a href="myTastings.html">My Tastings</a>
+        <a href="myRecipes.html">Recipes</a>
         <a href="feedBeta.html">Feed (Beta)</a>
-        <a href="coffeeMap.html">Coffee Map</a>
         <div class="lineBreak"></div>
         <a href="upcomingFeatures.html">Upcoming Features</a>
         <a href="#" onclick="openFeedback(); return false;">Feedback</a>
@@ -220,7 +220,7 @@
         console.log("Recipe data:", recipeData);
 
         // title, description, brewMethod, coffeeWeight, waterInfo, grind, steps
-        document.querySelector(".recipe-title").textContent = recipeData.title;
+        document.querySelector(".recipe-title").textContent = recipeData.name;
         document.querySelector(".recipe-description").textContent = recipeData.description;
         document.querySelector("#brewMethod p").textContent = recipeData.brewMethod;
         document.querySelector("#coffeeWeight p").textContent = `${recipeData.coffeeWeight}g`;
@@ -228,7 +228,30 @@
         document.querySelector(".grind-text").textContent = `${recipeData.grind} Grind`;
 
         // change page title to recipe title
-        document.title = `${recipeData.title} - BrewLog`;
+        document.title = `${recipeData.name} - BrewLog`;
+
+        // change image to brew method image
+        const brewMethodImage = document.querySelector("#brewMethod img");
+        switch (recipeData.brewMethod) {
+          case "Espresso":
+            brewMethodImage.src = "../assets/espresso.png";
+            break;
+          case "V60":
+            brewMethodImage.src = "../assets/V60.webp";
+            break;
+          case "French Press":
+            brewMethodImage.src = "../assets/french-press.webp";
+            break;
+          case "Pour Over":
+            brewMethodImage.src = "../assets/pour-over.webp";
+            break;
+            
+          case "Aeropress":
+            brewMethodImage.src = "../assets/aeropress.webp";
+            break;
+          default:
+            brewMethodImage.src = "../assets/default.png"; // default image if no match
+        }
 
   
 
@@ -270,7 +293,7 @@
       } else {
           // User is not logged in, redirect to login page
           console.log("User not logged in, redirecting to login.");
-          window.location.href = "html/login.html";
+          window.location.href = "login.html";
       }
   });
     

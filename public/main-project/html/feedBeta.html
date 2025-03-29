@@ -45,13 +45,13 @@
         </div>
       </div>
       <button onclick="location.href='addTasting.html';">
-        <span class="plus-icon">+</span> Add New Tasting
+        <span class="plus-icon">+</span> Add New
       </button>
       <nav>
         <a href="../dashboard.html">Home</a>
         <a href="myTastings.html">My Tastings</a>
+        <a href="myRecipes.html">Recipes</a>
         <a href="feedBeta.html">Feed (Beta)</a>
-        <a href="coffeeMap.html">Coffee Map</a>
         <div class="lineBreak"></div>
         <a href="upcomingFeatures.html">Upcoming Features</a>
         <a href="#" onclick="openFeedback(); return false;">Feedback</a>
@@ -265,7 +265,7 @@
       for (let i = 1; i <= 5; i++) {
         const bean = document.createElement("div");
         bean.classList.add("bean", i <= rating ? "on" : "off");
-        bean.textContent = "☕";
+        bean.innerHTML = `<img src="../assets/coffee-Cup.webp" alt="Bean" width="36" height="36">`;
         ratingSys.appendChild(bean);
       }
 
@@ -304,6 +304,7 @@
 
       return tastingCard;
     }
+    
 
     // Listen for auth state changes
     auth.onAuthStateChanged(async (user) => {

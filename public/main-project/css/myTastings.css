@@ -331,7 +331,6 @@
     .ratingSys {
       display: flex;
       justify-content: center;
-      background-color: #F2D9FF;
       width: clamp(120px, 80%, 200px);
       border-radius: 8px;
       padding: 4px;

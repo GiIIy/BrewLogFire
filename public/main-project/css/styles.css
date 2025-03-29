@@ -435,13 +435,8 @@
     .ratingSys {
       display: flex;
       justify-content: center;
-      background-color: #F2D9FF;
-      width: clamp(120px, 80%, 200px);
-      border-radius: 8px;
-      padding: 4px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      gap: 1px;
-      margin-top: 10px;
+      align-items: center;
+      
     }
     .bean {
       font-size: 24px;

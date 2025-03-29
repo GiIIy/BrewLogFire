@@ -13,7 +13,7 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Tastings - BrewLog</title>
+  <title>Recipes - BrewLog</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/myTastings.css" />
   <link rel="stylesheet" href="../css/loadingStyles.css" />
@@ -54,7 +54,7 @@
       </button>
       <nav>
         <a href="../dashboard.html">Home</a>
-        <a href="#">My Tastings</a>
+        <a href="#">My Tastings </a>
         <a href="myRecipes.html">Recipes</a>
         <a href="feedBeta.html">Feed (Beta)</a>
         <div class="lineBreak"></div>
@@ -82,11 +82,12 @@
 
       <!-- My Tastings Content -->
       <a onclick="window.history.back();" class="back-btn">&#8592; Back</a>
-      <h2 class="page-title">My Tastings</h2>
+      <h2 class="page-title">Recipes</h2>
+      </h2>
 
       <!-- Search & Sort -->
       <div class="tastings-header">
-        <input type="text" class="search-bar" placeholder="Search Tastings" />
+        <input type="text" class="search-bar" placeholder="Search Recipes" />
         <div class="search-sort">
           <button class="search-btn">Search</button>
           <button class="sort-btn" onclick="showComingSoon()">Filter</button>
@@ -178,20 +179,20 @@
     // Function to fetch tastings from Firestore
     async function fetchTastings(userEmail) {
         const tastingsList = document.querySelector('.tastings-list');
-        console.log("Fetching tastings for:", userEmail);
+        console.log("Fetching recipes for:", userEmail);
 
         try {
             // Query the tastings collection to get tastings for the logged-in user
-            const tastingsRef = collection(db, "tastings");
-            const userTastingsQuery = query(tastingsRef, where("userEmail", "==", userEmail));
+            const tastingsRef = collection(db, "recipes");
+            const userTastingsQuery = query(tastingsRef);
             const querySnapshot = await getDocs(userTastingsQuery);
 
             console.log("Query snapshot:", querySnapshot);
 
             // Check if there are any tastings
             if (querySnapshot.empty) {
-                tastingsList.innerHTML = "<p>No tastings found. Please add some tastings.</p>";
-                console.log("No tastings found.");
+                tastingsList.innerHTML = "<p>No recipes found. Please add some recipes.</p>";
+                console.log("No recipes found.");
                 return;
             }
 
@@ -202,10 +203,10 @@
                 const tastingCard = createTastingCard(coffee);
                 tastingsList.appendChild(tastingCard);
             });
-            console.log("Tastings loaded:", querySnapshot.size);
+            console.log("Recipes loaded:", querySnapshot.size);
         } catch (error) {
-            console.error("Error fetching tastings: ", error);
-            tastingsList.innerHTML = "<p>Failed to load tastings. Please try again later.</p>";
+            console.error("Error fetching recipes: ", error);
+            tastingsList.innerHTML = "<p>Failed to load recipes. Please try again later.</p>";
         }
     }
 
@@ -215,7 +216,7 @@
         tastingCard.classList.add('tasting-card');
         tastingCard.onclick = function() {
             // redirect to tasting details page with the document ID from Firestore
-            window.location.href = `tastingDetails.html?id=${coffee.id}`;
+            window.location.href = `recipeTemplate.html?id=${coffee.id}`;
         };
 
         const tastingCardContent = document.createElement('div');
@@ -245,9 +246,9 @@
         const tastingCardHeader = document.createElement('div');
         tastingCardHeader.classList.add('tasting-card-header');
         const coffeeName = document.createElement('h3');
-        coffeeName.textContent = coffee.coffeeName;
+        coffeeName.textContent = coffee.name;
         const brandName = document.createElement('p');
-        brandName.textContent = `by ${coffee.brandName}`;
+        brandName.textContent = `${coffee.description}`;
         tastingCardHeader.appendChild(coffeeName);
         tastingCardHeader.appendChild(brandName);
 
@@ -255,23 +256,8 @@
         brewMethod.classList.add('brew-method');
         brewMethod.textContent = `Brew Method: ${coffee.brewMethod}`;
 
-        const ratingSys = document.createElement('div');
-        const rating = Number(coffee.rating); // Convert to a number
-        ratingSys.classList.add('ratingSys');
-        // Assuming you store the rating as a number from 1 to 5
-        for (let i = 1; i <= 5; i++) {
-            const bean = document.createElement('div');
-            bean.classList.add('bean');
-            bean.classList.add(i <= rating ? 'on' : 'off');
-            // <img style="width: 36px; height: 36px;" src="../assets/coffee-cup.webp">
-            bean.innerHTML = `<img style="width: 36px; height: 36px;" src="../assets/coffee-cup.webp">`;
-            bean.setAttribute('data-value', i); // Optional: store the value in a data attribute
-            ratingSys.appendChild(bean);
-        }
-
         tastingText.appendChild(tastingCardHeader);
         tastingText.appendChild(brewMethod);
-        tastingText.appendChild(ratingSys);
 
         tastingCardContent.appendChild(tastingImage);
         tastingCardContent.appendChild(tastingText);

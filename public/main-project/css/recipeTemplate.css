@@ -397,26 +397,38 @@
         padding: 0 10px;
       }
       @media screen and (max-width: 768px) {
-        .add-tasting-container {
-          padding: 20px;
+        /* making mobile responsive */
+        .form-grid {
+          grid-template-columns: 1fr;
         }
+
         .side-section {
           max-width: 100%;
         }
-        .image-upload {
-          height: 180px;
+
+        .add-tasting-container {
+          padding: 20px;
+        }
+
+        .add-tasting-container h2 {
+          font-size: 20px;
+        }
+
+        .add-tasting-container label {
           font-size: 14px;
         }
-        .add-tasting-tabs button {
+
+        .add-tasting-container input,
+        .add-tasting-container select,
+        .add-tasting-container textarea {
           font-size: 14px;
-          padding: 12px;
         }
-        .content-wrapper {
-          flex-direction: column;
+        .add-tasting-container button {
+          font-size: 14px;
         }
-        .form-section {
-          flex: 1;
-        }
+
+
+
       }
 
       
@@ -730,6 +742,63 @@
   
         .button-container button {
           font-size: 14px;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .add-tasting-container {
+          padding: 20px;
+        }
+  
+        .add-tasting-container h2 {
+          font-size: 20px;
+        }
+  
+        .add-tasting-container label {
+          font-size: 14px;
+        }
+  
+        .add-tasting-container input,
+        .add-tasting-container select,
+        .add-tasting-container textarea {
+          font-size: 14px;
+        }
+  
+        .add-tasting-container button {
+          font-size: 14px;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        .recipe-container {
+          padding: 10px;
+        }
+  
+        .recipe-title {
+          font-size: 20px;
+        }
+  
+        .recipe-description {
+          font-size: 14px;
+        }
+  
+        /* make detail cards fit in smaller screens still in a row */
+
+        .recipe-details {
+          width: 100%;
+          flex-wrap: wrap;
+        }
+
+        .detail-card img {
+          width: 100px;
+          height: 100px;
+        }
+  
+        .steps-section h3 {
+          font-size: 16px;
+        }
+  
+        .step {
+          font-size: 12px;
         }
       }
     
