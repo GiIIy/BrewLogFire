@@ -136,3 +136,10 @@
       totalSeconds = 0;
       document.getElementById("timerDisplay").textContent = "00:00";
     }
+
+    function addStep() {
+      const stepsContainer = document.querySelector('.steps');
+      const textarea = document.createElement('textarea');
+      textarea.placeholder = `Step ${stepsContainer.querySelectorAll('textarea').length + 1}`;
+      stepsContainer.insertBefore(textarea, stepsContainer.querySelector('.add-step'));
+    }

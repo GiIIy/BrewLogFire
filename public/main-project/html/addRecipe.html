@@ -131,7 +131,7 @@
                 </select>
             </div>
            </div>
-           <div class="form-grid">
+           <div class="full-row">
                 <div class="steps">
                     <label>Steps</label>
                     <textarea placeholder="Step 1"></textarea>
@@ -142,13 +142,12 @@
             </div>
            </div>
 
-        
-          </div>
-        </div>
-        <!-- Save/Discard Buttons -->
-        <div class="add-tasting-buttons">
+           <!-- Save/Discard Buttons -->
+           <div class="add-tasting-buttons">
             <button type="submit" class="save" id="saveButton">Save</button>
             <button type="button" class="discard" onclick="window.history.back();">Discard</button>
+           </div>
+          </div>
         </div>
       </div>
     </div>
@@ -228,6 +227,64 @@
   <script type="module">
     import { db, auth } from "../js/firebase.js";
     import { doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+    document.getElementById('saveButton').addEventListener('click', async function(event) {
+      event.preventDefault();
+    
+      // Get the values from the form
+      const coffeeName = document.getElementById("coffee-name").value;
+      const brandName = document.getElementById("brand-name").value;
+      const coffeeWeight = document.getElementById("coffeeWeight").value;
+      const brewMethod = document.getElementById("brewMethod").value;
+      const waterAmount = document.getElementById("waterAmount").value;
+      const waterTemp = document.getElementById("waterTemp").value;
+      const grind = document.getElementById("grind").value;
+      const steps = document.querySelectorAll(".steps textarea"); // this saves steps as a NodeList
+
+      // Get the user's email
+      const userEmail = auth.currentUser.email;
+
+      // check how many recipes they have and use ID e.g. littlejjgill@gmail.com-1, if this is first recipe
+      const userDoc = await getDoc(doc(db, "users", userEmail));
+      const userRecipes = userDoc.data().recipes;
+
+      var recipeID = `${userEmail}-${1}`;
+      var notGotDoc = true;
+      var sum = 1;
+
+      while(notGotDoc) {
+        const recipeDoc = await getDoc(doc(db, "recipes", recipeID));
+        if(recipeDoc.exists()) {
+          sum++;
+          recipeID = `${userEmail}-${sum}`;
+        } else {
+          notGotDoc = false;
+        }
+      }
+      
+
+
+      // Create a new recipe object
+      const recipe = {
+        name: coffeeName,
+        description: brandName,
+        coffeeWeight: coffeeWeight,
+        brewMethod: brewMethod,
+        waterAmount: waterAmount,
+        waterTemp: waterTemp,
+        grind: grind,
+        steps: Array.from(steps).map(step => step.value),
+        email: userEmail,
+        createdAt: new Date() // You can track when the entry was created
+      };
+
+      // Add the recipe to the database
+      await setDoc(doc(db, "recipes", recipeID), recipe);
+
+      // Redirect to the dashboard
+      window.location.href = "../dashboard.html";
+    });
+
 
     auth.onAuthStateChanged(async (user) => {
       console.log("Auth state changed:", user);

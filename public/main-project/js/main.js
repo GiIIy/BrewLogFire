@@ -29,14 +29,21 @@ document.getElementById("login-email-btn").addEventListener("click", async () =>
 document.getElementById("register-btn").addEventListener("click", async () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
+    if (password.length < 6) {
+        const tooShortText = document.getElementById("tooShort");
+        tooShortText.style.display = "block";
+        return;
+    }
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log("✅ User registered:", userCredential.user);
-        
         // After registration, show the profile completion form
         document.getElementById("registration-section").style.display = "block"; 
         // Hide the input group
         document.getElementById("login-box").style.display = "none";
+        console.log("✅ User registered:", userCredential.user);
+        
+       
 
         
 

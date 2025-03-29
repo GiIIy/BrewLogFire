@@ -377,14 +377,6 @@ body.dark-mode .add-tasting-tabs button:hover{
   margin-bottom: 5px;
   font-size: 14px;
 }
-.full-row textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  resize: vertical;
-  min-height: 100px;
-}
 /* Image Upload - now only appears in Advanced Mode */
 .image-upload {
   width: 100%;
@@ -422,6 +414,14 @@ body.dark-mode .add-tasting-tabs button:hover{
   .form-section {
     flex: 1;
   }
+
+  /* input going out of container on mobile */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+  }
+  
 }
 /* Buttons */
 .add-tasting-buttons {
@@ -767,5 +767,26 @@ body.dark-mode .button-container button {
 
 .timer-section button:active {
   transform: scale(0.95);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.steps textarea {
+  width: 100%;
+}
+
+.add-step {
+  background-color: #6a00ff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
