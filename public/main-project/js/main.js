@@ -1,5 +1,6 @@
 // Import Firebase services from firebase.js
 import { auth, db } from "./firebase.js";
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 import { 
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword, 
@@ -86,6 +87,21 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
         window.location.href = ""; // Redirect to login page after logout
     } catch (error) {
         console.error("❌ Logout failed:", error.message);
+    }
+});
+
+document.getElementById("passReset").addEventListener("click", async () => {
+    const email = document.getElementById("email").value;
+    if (!email) {
+        alert("Please enter your email to reset your password.");
+        return;
+    }
+    try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Password reset email sent! Check your inbox.");
+    } catch (error) {
+        console.error("❌ Password reset failed:", error.message);
+        alert("Error: " + error.message);
     }
 });
 

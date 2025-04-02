@@ -110,6 +110,10 @@ textarea {
     text-align: center; 
 }
 
+.passReset{
+    text-align: center;
+}
+
 /* Responsive adjustments */
 @media (max-width: 480px) {
     .login-box {
