@@ -133,12 +133,22 @@
           <!-- Tab Content: Coffee Information -->
 
           <div class="tab-content active" id="coffeeInfoTab">
+            <div class="full-row">
+              <label for="coffees">Pick a Coffee</label>
+              <select id="coffees">
+                <option value="blank"></option>
+                <option value="add-new">Add New</option>
+              </select>
+            </div>
+
             <!-- Simple Mode Fields -->
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="coffee-name">Coffee Name</label>
-                <input type="text" id="coffee-name" placeholder="Enter coffee name">
-              </div>
+            <div class="hidden">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="coffee-name">Coffee Name</label>
+                  <input type="text" id="coffee-name" placeholder="Enter coffee name">
+                </div>
+              
               <div class="form-group">
                 <label for="brand-name">Brand Name</label>
                 <input type="text" id="brand-name" placeholder="Enter brand name">
@@ -206,6 +216,7 @@
               </div>
             </div>
           </div>
+        </div>
 
           <!-- Tab Content: Coffee Preparation -->
           <div class="tab-content" id="coffeePrepTab">
@@ -223,11 +234,7 @@
               </div>
               <div class="form-group">
                 <label for="grind-setting">Grind Setting</label>
-                <select id="grind-setting">
-                  <option value="Coarse">Coarse</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Fine">Fine</option>
-                </select>
+                <input id="grind-setting" type="number" placeholder="Enter grind setting">
               </div>
             </div>
             <div class="form-grid">
@@ -458,7 +465,7 @@
   <script src="../js/addTasting.js"></script>
   <script type="module">
     import { db, auth } from "../js/firebase.js";
-    import { doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    import { doc, setDoc, getDoc, collection, query, where, getDocs, deleteDoc, limit, orderBy } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
     document.getElementById('saveButton').addEventListener('click', async function(event) {
         event.preventDefault();
@@ -507,6 +514,55 @@
         const today = new Date();
         const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+        const exist = document.getElementById('coffees').value
+        if (exist == "add-new"){
+            const newCoffee = {
+              bean: bean,
+              brandName: brandName,
+              coffeeName: coffeeName,
+              elevation: elevation,
+              links: links,
+              origin: origin,
+              price: price,
+              processing: processing,
+              producer: producer,
+              roast: roast,
+              userEmail: userEmail
+            }
+
+            var docId = `${userEmail}-${1}`;
+            var notGotDoc = true;
+            var sum = 1;
+
+
+            // try except block to check if the docId already exists (if not in edit mode)
+            while (notGotDoc){
+              try {
+                const docRef = doc(db, "coffees", docId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                  console.log("Document already exists, trying next ID: ", docId);
+                  sum = sum + 1;
+                  docId = `${userEmail}-${sum}`;
+                } else {
+                  docId = `${userEmail}-${sum}`;
+                  console.log("Document does not exist, using this ID: ", docId);
+                  notGotDoc = false;
+                }
+              } catch (error) {
+                console.error("Error checking if document exists: ", error);
+                alert("Failed to upload data.");
+                return;
+              }
+          }
+
+            await setDoc(doc(db, "coffees", docId), newCoffee);
+
+            // Alert success and reset the form
+            alert("Coffee data successfully uploaded to the database!");
+
+        }
 
 
         if (userEmail) {
@@ -607,11 +663,146 @@
         }
     });
 
+
+    async function getCoffeeId(userEmail, coffeeName) {
+      try {
+          const coffeesRef = collection(db, "coffees");  // Reference to your collection
+          
+          // Query to find the document where coffeeName and userEmail match
+          const coffeeQuery = query(
+              coffeesRef,
+              where("coffeeName", "==", coffeeName),  // Match coffeeName
+              where("userEmail", "==", userEmail)    // Match userEmail
+          );
+          
+          // Get the query results
+          const querySnapshot = await getDocs(coffeeQuery);
+
+          if (querySnapshot.empty) {
+              console.log("No matching coffee found.");
+              return null;
+          }
+
+          // If a match is found, retrieve the ID of the document
+          const coffeeDoc = querySnapshot.docs[0];  // Since we are expecting one match
+          const coffeeId = coffeeDoc.id;  // This is the Firestore document ID
+          console.log("Found Coffee ID:", coffeeId);
+          return coffeeId;
+      } catch (error) {
+          console.error("Error fetching coffee ID:", error);
+      }
+  }
+
+
+    async function fetchPrevious(userEmail, brewMethod) {
+        try {
+            const tastingsRef = collection(db, "tastings");
+            
+            // Query: Filter by userEmail and brewMethod, order by timestamp descending, and limit to 1
+            const userTastingsQuery = query(
+                tastingsRef,
+                where("userEmail", "==", userEmail),
+                where("brewMethod", "==", brewMethod),
+                orderBy("createdAt", "desc"), // Ensure "timestamp" field exists
+                limit(1)
+            );
+
+            const querySnapshot = await getDocs(userTastingsQuery);
+
+            // Check if there are any tastings
+            if (querySnapshot.empty) {
+                console.log("No tastings found.");
+                return null;
+            }
+
+            // Get the newest tasting entry
+            const tastingData = querySnapshot.docs[0].data();
+            console.log(tastingData);
+            
+            // Populate the form fields with the fetched data
+            document.getElementById('grind-setting').value = tastingData.grindSetting;
+            document.getElementById('water-temp').value = tastingData.waterTemp;
+            document.getElementById('brew-time').value = tastingData.brewTime;
+            document.getElementById('coffee-dose').value = tastingData.coffeeDose;
+            document.getElementById('water-volume').value = tastingData.waterVolume;
+            document.getElementById('equipment-used').value = tastingData.equipmentUsed;
+            document.getElementById('filter-type').value = tastingData.filterType;
+            document.getElementById('bloom-time').value = tastingData.bloomTime;
+            document.getElementById('total-brew-time').value = tastingData.totalBrewTime;
+            document.getElementById('improvement').value = tastingData.improvement;
+
+
+
+        } catch (error) {
+            console.error("Error fetching tastings:", error);
+        }
+    }
+
+    async function fetchCoffees(tastingId){
+      const addNewDiv = document.querySelector('.hidden'); // Select the div
+      addNewDiv.style.display = 'block'; // Show the div
+      const tastingDoc = await getDoc(doc(db, "tastings", tastingId));
+      const tastingData = tastingDoc.data();
+
+      // Populate the form fields with the fetched data
+      document.getElementById('coffee-name').value = tastingData.coffeeName;
+      document.getElementById('brand-name').value = tastingData.brandName;
+      document.getElementById('origin').value = tastingData.origin;
+      document.getElementById('processing').value = tastingData.processing;        document.getElementById('roast').value = tastingData.roast;
+      document.getElementById('bean').value = tastingData.bean;
+      document.getElementById('producer').value = tastingData.producer;
+      document.getElementById('elevation').value = tastingData.elevation;
+      document.getElementById('price').value = tastingData.price;
+      document.getElementById('links').value = tastingData.links;
+      document.getElementById('more-info').value = tastingData.moreInfo;
+    }
+
+    // Function to fetch tastings from Firestore
+    async function fetchYourCoffees(userEmail) {
+        console.log("Fetching tastings for:", userEmail);
+
+        try {
+            // Query the tastings collection to get tastings for the logged-in user
+            const tastingsRef = collection(db, "coffees");
+            const userTastingsQuery = query(tastingsRef, where("userEmail", "==", userEmail));
+            const querySnapshot = await getDocs(userTastingsQuery);
+
+            console.log("Query snapshot:", querySnapshot);
+
+            // Check if there are any tastings
+            if (querySnapshot.empty) {
+                console.log("No coffees found.");
+                return;
+            }
+
+            // Loop through the tastings and create a tasting card for each one
+            querySnapshot.forEach((doc) => {
+                const coffee = doc.data();
+                coffee.id = doc.id;
+                var coffeeName = coffee.coffeeName;
+                // add an option id coffees
+                var option = document.createElement("option");
+                option.textContent = coffeeName;  // Set the text to coffee name
+                // Find the select element with id 'coffees'
+                var coffeesSelect = document.getElementById("coffees");
+
+                // Append the new option to the select dropdown
+                coffeesSelect.appendChild(option);
+
+            });
+            console.log("Tastings loaded:", querySnapshot.size);
+        } catch (error) {
+            console.error("Error fetching tastings: ", error);
+            tastingsList.innerHTML = "<p>Failed to load tastings. Please try again later.</p>";
+        }
+    }
+
+
+
+
+
     auth.onAuthStateChanged(async (user) => {
       console.log("Auth state changed:", user);
-
-
-
 
       if (user) {
           // User is logged in, access their email
@@ -676,16 +867,45 @@
 
         
       }
-      
 
+      fetchYourCoffees(userEmail);
+
+      document.getElementById('coffees').addEventListener('change', async function(event) {
+        const addNewDiv = document.querySelector('.hidden'); // Select the div
+
+        if (event.target.value === 'add-new') {
+            addNewDiv.style.display = 'block'; // Show the div
+        } else if (event.target.value === "blank") {
+            addNewDiv.style.display = 'none'; // Hide the div
+        } else {
+            var coffeeName = event.target.value
+            console.log(coffeeName);
+            var coffeeId = await getCoffeeId(userEmail, coffeeName);
+            fetchCoffees(coffeeId);
+            
+        }
+    });
+      
+      var brewMethod = document.getElementById('brew-method').value;
+      fetchPrevious(userEmail, brewMethod);
+
+      document.getElementById('brew-method').addEventListener('change', async function(event) {
+        brewMethod = document.getElementById('brew-method').value;
+        fetchPrevious(userEmail, brewMethod);
+      });
+      
 
       // loading screen
       document.querySelector('.loading').style.display = "none";
       document.querySelector('.everything').style.display = "block";
     };
 
+    
+
 
   });
+
+  
 
 
 

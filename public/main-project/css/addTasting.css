@@ -386,6 +386,14 @@
     resize: vertical;
     min-height: 100px;
   }
+
+  .full-row select{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+    
   /* Image Upload - now only appears in Advanced Mode */
   .image-upload {
     width: 100%;
@@ -777,6 +785,11 @@
   .timer-section button:active {
     transform: scale(0.95);
   }
+
+  .hidden{
+    display: none;
+  }
+
 
   
 
