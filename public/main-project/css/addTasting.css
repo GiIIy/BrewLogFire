@@ -694,6 +694,25 @@
     background-color: #00cc5a;
   }
 
+  .upsell-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .upsell-button-container button {
+    padding: 12px 20px;
+    background-color: #00E46A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
   /* Dark Mode */
   body.dark-mode .button-container button {
     background-color: #00cc5a;

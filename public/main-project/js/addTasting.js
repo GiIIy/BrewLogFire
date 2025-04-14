@@ -15,15 +15,13 @@
         localStorage.setItem('darkMode', 'disabled');
       }
     }
+
+    
     
     document.addEventListener("DOMContentLoaded", function () {
       if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
       }
-
-
-
-
       
       // Tab switching functionality
       document.querySelectorAll('.tab-button').forEach(function(btn) {
@@ -142,4 +140,11 @@
       const textarea = document.createElement('textarea');
       textarea.placeholder = `Step ${stepsContainer.querySelectorAll('textarea').length + 1}`;
       stepsContainer.insertBefore(textarea, stepsContainer.querySelector('.add-step'));
+    }
+
+    function closePromode() {
+      const popup = document.getElementById('promodePopup');
+      const overlay = document.getElementById('promodeOverlay');
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
     }

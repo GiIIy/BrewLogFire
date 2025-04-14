@@ -460,6 +460,27 @@
     </div>
   </div>
 
+  <!-- Pro Mode Popup-->
+  <div class="overlay" id="promodeOverlay" style="display:none;"></div>
+  <div class="popup" id="promodePopup" style="display:none;">
+    <div class="popup-header">
+      <h2>🔒 Weekly Limit Reached</h2>
+      <button class="close-btn" onclick="closePromode()">×</button>
+    </div>
+    <div class="popup-content">
+      <p>You’ve already logged 1 tasting this week.</p>
+      <p>To keep things smooth and fair for all users, free members can log one tasting per week.</p>
+      <br>
+      <p style="font-weight: bold;">Go Pro for just £2.99/month — or save with yearly or lifetime access.</p>
+      <p>🎁 Early users get a special discount – act now before it’s gone!</p>
+    </div>
+    <div class="upsell-button-container">
+      <button onclick="window.location.href='../../presalePage.html';">Upgrade Now</button>
+      <button onclick="closePromode()" style="background-color: red;">Maybe Later</button>
+    </div>
+  </div>
+  
+
 
   <script src="../js/contactPopup.js"></script>
   <script src="../js/addTasting.js"></script>
@@ -469,6 +490,30 @@
 
     document.getElementById('saveButton').addEventListener('click', async function(event) {
         event.preventDefault();
+
+        // check if user is pro user
+        const userEmail = auth.currentUser?.email;
+        const userDoc = await getDoc(doc(db, "users", userEmail));
+        const isProUser = userDoc.data().isProUser;
+        console.log("User is pro user: ", isProUser);
+        
+
+        if (isProUser == false) {
+            console.log("User is not a pro user, checking tasting count...")
+            // Check if user has 1 tasting this week already
+            const userEmail = auth.currentUser?.email;
+            const tastingsRef = collection(db, "tastings");
+            const userTastingsQuery = query(tastingsRef, where("userEmail", "==", userEmail));
+            const querySnapshot = await getDocs(userTastingsQuery);
+            const tastingCount = querySnapshot.size;
+            if (tastingCount >= 1) {
+                // open pro mode popup
+                document.getElementById('promodeOverlay').style.display = 'block';
+                document.getElementById('promodePopup').style.display = 'block';
+                console.log("User has already 1 tasting this week, showing pro mode popup.");
+                return;
+            }
+        }
 
         // start loading screen
         document.querySelector('.loading').style.display = "block";
@@ -506,9 +551,6 @@
         const aftertaste = document.getElementById('aftertaste').value;
         const notes = document.getElementById('notes').value;
         const rating = document.getElementById('ratingValue').value;
-
-        // Get current user email
-        const userEmail = auth.currentUser?.email;
         
         // get todays date
         const today = new Date();
@@ -796,6 +838,7 @@
             tastingsList.innerHTML = "<p>Failed to load tastings. Please try again later.</p>";
         }
     }
+
 
 
 
